@@ -1,5 +1,5 @@
 (require :ecl-quicklisp)
 (ql:quickload :alexandria)
-(ql:quickload :babel)
 (ql:quickload :drakma)
 (ql:quickload :jsown)
+(ql:quickload :cloverlover)

@@ -1,5 +1,7 @@
 RPMS/*
+rpm/pusfofefe.spec
 Makefile
+documentation.list
 libapp.a
 pusfofefe
 pusfofefe.o

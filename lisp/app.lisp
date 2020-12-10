@@ -28,7 +28,7 @@
 
 (defun start ()
   #+app-debug (start-slynk)
-  (eql-user::read-config)
+  (cloverlover::read-config)
   (ini-quick-view (main-qml))
   (qconnect (qview) "statusChanged(QQuickView::Status)"
             (lambda (status)
