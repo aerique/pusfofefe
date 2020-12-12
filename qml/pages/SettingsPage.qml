@@ -16,6 +16,8 @@ Page {
             }
         }
 
+        VerticalScrollDecorator {}
+
         PageHeader {
             id: pageHeader
             title: qsTr("Settings")
@@ -55,13 +57,12 @@ Page {
 
             Button {
                 id: submitCredentials
+                x: Theme.horizontalPageMargin
                 text: "Login to Pushover"
                 onClicked: Lisp.call("cloverlover::login-and-register",
                                      pushoverEmail.text,
                                      pushoverPassword.text)
             }
         }
-
-        VerticalScrollDecorator {}
     }
 }
