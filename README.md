@@ -49,10 +49,15 @@ The actual build steps for Pusfofefe are:
 
 ## To Do
 
-- [ ] add link to https://pushover.net/signup
-- [ ] use `/home/nemo/.config/pusfofefe/config.lisp` for config
+- [X] use proper primary and hint colors for text, links and input
+- [X] add link to https://pushover.net/signup
+- [X] use `/home/nemo/.config/pusfofefe/config.lisp` for config
+- [ ] expand descriptions for ECL and EQL in About page
 - [ ] add support for two-factor auth
 - [ ] add support for entering session secrets and device UUIDs
+
+### Maybe
+
 - [ ] add support for landscape orientation
 - [ ] add Pushover [websocket](https://pushover.net/api/client#websocket)
-      support?
+      support
