@@ -14,6 +14,18 @@
 (defparameter *pushover-password*  nil)
 (defparameter *pushover-secret*    nil)
 (defparameter *pushover-device-id* nil)
+(defparameter *pushover-refresh*   10)
+
+
+;;; Getters
+;;;
+;;; As much as I hate them (it's a bit of a smell that something hasn't been
+;;; thought out right): I see no better solution for now.
+
+(defun set-pushover-refresh (refresh-time)
+  (setf *pushover-refresh* refresh-time)
+  (format t "Pushover refresh time set to ~Dm.~%" refresh-time)
+  (write-config))
 
 
 ;;; Functions
@@ -41,12 +53,13 @@
     (format t "Writing config ~S... " cfg)
     (finish-output)
     (with-open-file (f cfg :direction :output :if-exists :supersede)
-      (format f "(defparameter *pushover-email* ~S)~%~
-                 (defparameter *pushover-password* ~S)~%~
-                 (defparameter *pushover-secret* ~S)~%~
-                 (defparameter *pushover-device-id* ~S)~%"
+      (format f "(defparameter *pushover-email*     ~S)~%~
+                 (defparameter *pushover-password*  ~S)~%~
+                 (defparameter *pushover-secret*    ~S)~%~
+                 (defparameter *pushover-device-id* ~S)~%~
+                 (defparameter *pushover-refresh*   ~D)~%"
               *pushover-email* *pushover-password* *pushover-secret*
-              *pushover-device-id*)))
+              *pushover-device-id* *pushover-refresh*)))
   (format t "Config written.~%"))
 
 

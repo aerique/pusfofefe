@@ -56,9 +56,41 @@ Page {
                 id: submitCredentials
                 x: Theme.horizontalPageMargin
                 text: "Login to Pushover"
+
                 onClicked: Lisp.call("cloverlover::login-and-register",
                                      pushoverEmail.text,
                                      pushoverPassword.text)
+            }
+
+            Label {
+                width: parent.width
+                x: Theme.horizontalPageMargin
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.highlightColor
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                onLinkActivated: Qt.openUrlExternally(link)
+                text: qsTr("<style>a:link { color: " + Theme.primaryColor + "; }</style>" +
+                           "(To sign up for Pushover please go to: " +
+                           "<a href='https://pushover.net/signup'>https://pushover.net/signup</a>.)")
+            }
+
+            SectionHeader {
+                text: "App"
+            }
+
+            TextField {
+                id: refreshTime
+                inputMethodHints: Qt.ImhDigitsOnly
+                width: parent.width
+                label: "minutes between Pushover checks"
+                // 1m < t < 1d
+                validator: IntValidator { bottom: 1; top: 1440 }
+                text: Lisp.call("cloverlover::get-pushover-refresh")
+
+                EnterKey.iconSource: "image://theme/icon-m-accept"
+                EnterKey.onClicked: Lisp.call(
+                    "cloverlover::set-pushover-refresh", refreshTime.text)
             }
         }
     }
