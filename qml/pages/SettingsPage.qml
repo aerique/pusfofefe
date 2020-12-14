@@ -8,10 +8,19 @@ Page {
         contentWidth: parent.width
         contentHeight: column.height
 
+        RemorsePopup { id: remorse }
+
         PullDownMenu {
             MenuItem {
                 text: "About"
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+            }
+
+            MenuItem {
+                text: "Reset Settings"
+                onClicked: remorse.execute(
+                    "Resetting all settings to default",
+                    function() { console.log("Reset all settings.") })
             }
         }
 

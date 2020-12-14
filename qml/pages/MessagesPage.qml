@@ -28,6 +28,8 @@ Page {
             onClicked: console.log("Clicked " + index)
         }
 
+        RemorsePopup { id: remorse }
+
         PullDownMenu {
             MenuItem {
                 text: "Settings"
@@ -36,7 +38,9 @@ Page {
 
             MenuItem {
                 text: "Clear All Messages"
-                onClicked: console.log("Clear all messages.")
+                onClicked: remorse.execute(
+                    "Deleting all messages",
+                    function() { console.log("Clear all messages.") })
             }
 
             MenuItem {
