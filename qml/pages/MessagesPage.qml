@@ -5,9 +5,28 @@ import EQL5 1.0
 Page {
     id: page
 
-    SilicaFlickable {
+    SilicaListView {
         anchors.fill: parent
-        contentWidth: parent.width
+        //contentWidth: parent.width
+        model: 20
+
+        header: PageHeader {
+            title: "Messages"
+        }
+
+        delegate: BackgroundItem {
+            id: delegate
+
+            Label {
+                x: Theme.horizontalPageMargin
+                text: "Item " + index
+                anchors.verticalCenter: parent.verticalCenter
+                color: delegate.highlighted ? Theme.highlightColor :
+                                              Theme.primaryColor
+            }
+
+            onClicked: console.log("Clicked " + index)
+        }
 
         PullDownMenu {
             MenuItem {
@@ -27,28 +46,5 @@ Page {
         }
 
         VerticalScrollDecorator {}
-
-        SilicaListView {
-            anchors.fill: parent
-            model: 20
-
-            PageHeader {
-                title: "Messages"
-            }
-
-            delegate: BackgroundItem {
-                id: delegate
-
-                Label {
-                    x: Theme.horizontalPageMargin
-                    text: "Item " + index
-                    anchors.verticalCenter: parent.verticalCenter
-                    color: delegate.highlighted ? Theme.highlightColor :
-                                                  Theme.primaryColor
-                }
-
-                onClicked: console.log("Clicked " + index)
-            }
-        }
     }
 }
