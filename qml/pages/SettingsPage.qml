@@ -4,34 +4,31 @@ import EQL5 1.0
 
 Page {
     SilicaFlickable {
-        width: parent.width
-        contentHeight: column.height
-
         anchors.fill: parent
+        contentWidth: parent.width
+        contentHeight: column.height
 
         PullDownMenu {
             MenuItem {
-                text: qsTr("About")
+                text: "About"
                 onClicked: pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
             }
         }
 
         VerticalScrollDecorator {}
 
-        PageHeader {
-            id: pageHeader
-            title: qsTr("Settings")
-        }
-
         Column {
             id: column
+            spacing: Theme.paddingLarge
             width: parent.width
-            //height: childrenRect.height
 
-            anchors
-            {
-                top: pageHeader.bottom
-                topMargin: Theme.paddingLarge
+            PageHeader {
+                id: pageHeader
+                title: "Settings"
+            }
+
+            SectionHeader {
+                text: "Pushover"
             }
 
             TextField {
