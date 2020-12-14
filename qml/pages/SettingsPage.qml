@@ -67,7 +67,7 @@ Page {
             Label {
                 width: parent.width
                 x: Theme.horizontalPageMargin
-                font.pixelSize: Theme.fontSizeVerySmall
+                font.pixelSize: Theme.fontSizeSmall
                 color: Theme.highlightColor
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText
