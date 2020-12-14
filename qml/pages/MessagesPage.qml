@@ -4,7 +4,6 @@ import EQL5 1.0
 
 Page {
     id: page
-    //allowedOrientations: Orientation.All
 
     SilicaFlickable {
         anchors.fill: parent
