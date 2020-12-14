@@ -4,54 +4,51 @@ import EQL5 1.0
 
 Page {
     id: page
-
-    // The effective value will be restricted by
-    // ApplicationWindow.allowedOrientations
     //allowedOrientations: Orientation.All
 
-    // To enable PullDownMenu, place our content in a SilicaFlickable
     SilicaFlickable {
         anchors.fill: parent
+        contentWidth: parent.width
 
-        // PullDownMenu and PushUpMenu must be declared in SilicaFlickable,
-        // SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
-                text: qsTr("Settings")
+                text: "Settings"
                 onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
             }
 
             MenuItem {
-                text: qsTr("Clear All Messages")
+                text: "Clear All Messages"
                 onClicked: console.log("Clear all messages.")
             }
 
             MenuItem {
-                text: qsTr("Refresh")
+                text: "Refresh"
                 onClicked: console.log("Refresh")
             }
         }
 
-        // Tell SilicaFlickable the height of its content.
-        contentHeight: column.height
+        VerticalScrollDecorator {}
 
-        // Place our content in a Column.  The PageHeader is always placed at
-        // the top of the page, followed by our content.
-        Column {
-            id: column
-
-            width: page.width
-            spacing: Theme.paddingLarge
+        SilicaListView {
+            anchors.fill: parent
+            model: 20
 
             PageHeader {
-                title: qsTr("Messages")
+                title: "Messages"
             }
 
-            Label {
-                x: Theme.horizontalPageMargin
-                text: qsTr("Hello Sailors")
-                color: Theme.secondaryHighlightColor
-                font.pixelSize: Theme.fontSizeExtraLarge
+            delegate: BackgroundItem {
+                id: delegate
+
+                Label {
+                    x: Theme.horizontalPageMargin
+                    text: "Item " + index
+                    anchors.verticalCenter: parent.verticalCenter
+                    color: delegate.highlighted ? Theme.highlightColor :
+                                                  Theme.primaryColor
+                }
+
+                onClicked: console.log("Clicked " + index)
             }
         }
     }
