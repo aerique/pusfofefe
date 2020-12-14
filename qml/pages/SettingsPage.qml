@@ -37,6 +37,7 @@ Page {
                 width: parent.width
                 label: "E-mail Address"
                 placeholderText: label
+                text: Lisp.call("cloverlover::get-pushover-email")
 
                 EnterKey.iconSource: "image://theme/icon-m-enter-next"
                 EnterKey.onClicked: pushoverPassword.focus = true
@@ -45,8 +46,9 @@ Page {
             PasswordField {
                 id: pushoverPassword
                 //width: parent.width
+                text: Lisp.call("cloverlover::get-pushover-password")
 
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.iconSource: "image://theme/icon-m-accept"
                 EnterKey.onClicked: Lisp.call("cloverlover::login-and-register",
                                               pushoverEmail.text,
                                               pushoverPassword.text)

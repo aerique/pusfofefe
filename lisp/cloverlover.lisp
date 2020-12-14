@@ -10,10 +10,10 @@
 (setf *app-name*    "Pusfofefe")
 (setf *app-version* "0.2")
 
-(defparameter *pushover-email*     nil)
-(defparameter *pushover-password*  nil)
-(defparameter *pushover-secret*    nil)
-(defparameter *pushover-device-id* nil)
+(defparameter *pushover-email*     "")
+(defparameter *pushover-password*  "")
+(defparameter *pushover-secret*    "")
+(defparameter *pushover-device-id* "")
 (defparameter *pushover-refresh*   10)
 
 
@@ -21,6 +21,25 @@
 ;;;
 ;;; As much as I hate them (it's a bit of a smell that something hasn't been
 ;;; thought out right): I see no better solution for now.
+
+(defun get-pushover-email ()
+  *pushover-email*)
+
+
+(defun get-pushover-password ()
+  *pushover-password*)
+
+
+(defun get-pushover-secret ()
+  *pushover-secret*)
+
+
+(defun get-pushover-device-id ()
+  *pushover-device-id*)
+
+
+(defun get-pushover-refresh ()
+  *pushover-refresh*)
 
 (defun set-pushover-refresh (refresh-time)
   (setf *pushover-refresh* refresh-time)
@@ -66,15 +85,17 @@
 (defun login-and-register (email password)
   (setf *pushover-email*    email
         *pushover-password* password)
-  (format t "Logging in with <<~S>> <<~S>>...~%" email password)
-  (let ((json (login email password)))
-    (format t ">>> ~S~%" json)
-    (format t ">>> ~S~%" (jsown:val json "status"))))
-    ;(if (= (jsown:val json "status") 0)
-    ;    (format t "Could not login: ~S~%" json)
-    ;    (progn (format t "Received secret <<~S>>.~%" (jsown:val json "secret"))
-    ;           (setf *pushover-secret* secret)
-    ;           (write-config)))))
+  (format t "[login-and-register] Logging in with <<~S>> <<~S>>...~%"
+          email password)
+  (let ((*print-pretty* nil)
+        (response (login email password)))
+    (format t ">>> ~S~%" response)
+    (if (= 0 (getf response :status))
+        (format t "[login-and-register] Could not login: ~S~%" response)
+        (progn (format t "[login-and-register] Received secret <<~S>>.~%"
+                       (getf response :secret))
+               (setf *pushover-secret* (getf response :secret))
+               (write-config)))))
     ;(format t "Registering device...~%")
     ;(setf device-id (register-new-device secret *app-name*))
     ;(setf *pushover-device-id* device-id)
