@@ -61,3 +61,7 @@ The actual build steps for Pusfofefe are:
 - [ ] add support for landscape orientation
 - [ ] add Pushover [websocket](https://pushover.net/api/client#websocket)
       support
+
+## Attributions
+
+App icon by [Freepik](https://www.flaticon.com/authors/freepik) from [www.flaticon.com](https://www.flaticon.com/).

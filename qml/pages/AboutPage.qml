@@ -77,6 +77,19 @@ Page {
                       "; }</style><a href='https://gitlab.com/eql/EQL5'>EQL5" +
                       "</a> courtesy of P. Ruetz."
             }
+
+            Label {
+                width: parent.width
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.highlightColor
+                wrapMode: Text.WordWrap
+                textFormat: Text.RichText
+                onLinkActivated: Qt.openUrlExternally(link)
+                text: "<style>a:link { color: " + Theme.primaryColor +
+                      "; }</style>App icon made by <a href='https://www."+
+                      "flaticon.com/authors/freepik'>Freepik</a> from <a " +
+                      "href='https://www.flaticon.com/'>www.flaticon.com</a>"
+            }
         }
     }
 }
