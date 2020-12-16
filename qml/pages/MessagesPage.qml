@@ -7,25 +7,21 @@ Page {
 
     SilicaListView {
         anchors.fill: parent
-        //contentWidth: parent.width
-        model: 20
+        model:myModel
 
-        header: PageHeader {
-            title: "Messages"
-        }
+        header: PageHeader { title: "Messages" }
 
         delegate: BackgroundItem {
             id: delegate
 
             Label {
                 x: Theme.horizontalPageMargin
-                text: "Item " + index
                 anchors.verticalCenter: parent.verticalCenter
-                color: delegate.highlighted ? Theme.highlightColor :
-                                              Theme.primaryColor
+                color: Theme.primaryColor
+                text: modelData
             }
 
-            onClicked: console.log("Clicked " + index)
+            onClicked: Lisp.call("cloverlover::test-update")
         }
 
         RemorsePopup { id: remorse }
@@ -40,7 +36,7 @@ Page {
                 text: "Clear All Messages"
                 onClicked: remorse.execute(
                     "Deleting all messages",
-                    function() { console.log("Clear all messages.") })
+                    function() { Lisp.call("cloverlover::clear-messages") })
             }
 
             MenuItem {

@@ -16,6 +16,30 @@
 (defparameter *pushover-device-id* "")
 (defparameter *pushover-refresh*   10)
 
+(defparameter *pushover-messages* '("app" "not" "miss"))
+
+
+;;; Model
+;;;
+;;; https://gitlab.com/eql/EQL5/-/blob/master/examples/M-modules/quick/item-model/list-model.lisp
+
+(defun set-my-model ()
+  (eql:qlet ((data (eql:qvariant-from-value *pushover-messages*
+                                            "QStringList")))
+    (eql:|setContextProperty| (qml:root-context) "myModel" data)))
+    ;; This doesn't seem to work:
+    ;(qml:qml-set (qml:root-context) "myModel" data)))
+
+
+(defun test-update ()
+  (setf *pushover-messages* (append *pushover-messages* (list (format nil "~D" (get-universal-time)))))
+  (set-my-model))
+
+
+(defun clear-messages ()
+  (setf *pushover-messages* '("stub message"))
+  (set-my-model))
+
 
 ;;; Getters
 ;;;
@@ -45,6 +69,10 @@
   (setf *pushover-refresh* refresh-time)
   (format t "Pushover refresh time set to ~Dm.~%" refresh-time)
   (write-config))
+
+
+(defun get-pushover-messages ()
+  *pushover-messages*)
 
 
 ;;; Functions
