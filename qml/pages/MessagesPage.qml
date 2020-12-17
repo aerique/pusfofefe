@@ -25,17 +25,16 @@ Page {
             onClicked: Lisp.call("cloverlover::test-update")
         }
 
+        // XXX This should become a Component?
         RemorsePopup { id: remorse }
 
-        // This should become a Component I guess?  Calling this from the
+        // XXX This should become a Component I guess?  Calling this from the
         // SettingsPage also works, while it is only defined here.
         Notification {
+            // FIXME rename `id` and `objectName` to error_notification
             id: notification
             objectName: "notification"  // so it can be called from Lisp
-            //previewSummary: "psummary"
-            previewBody: "pbody\nline2\nline3\nline4\nline5"
-            summary: "nsummary"
-            body: "nbody\nline2\nline3\nline4\nline5"
+            summary: "Pusfofefe Error"
         }
 
         PullDownMenu {
@@ -54,12 +53,6 @@ Page {
             MenuItem {
                 text: "Refresh"
                 onClicked: console.log("Refresh")
-            }
-
-            MenuItem {
-                text: "Notification"
-                onClicked: Lisp.call("cloverlover::notification-test")
-                //onClicked: notification.publish()
             }
         }
 

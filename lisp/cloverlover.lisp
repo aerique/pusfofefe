@@ -123,7 +123,12 @@
         (response (login email password)))
     (format t ">>> ~S~%" response)
     (if (= 0 (getf response :status))
-        (format t "[login-and-register] Could not login: ~S~%" response)
+        (progn (format t "[login-and-register] Could not login: ~S~%" response)
+               (qml:qml-set "notification" "previewBody"
+                            (first (getf response :errors)))
+               (qml:qml-set "notification" "body"
+                            (first (getf response :errors)))
+               (qml:qml-call "notification" "publish"))
         (progn (format t "[login-and-register] Received secret <<~S>>.~%"
                        (getf response :secret))
                (setf *pushover-secret* (getf response :secret))
