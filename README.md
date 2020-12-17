@@ -45,7 +45,8 @@ The actual build steps for Pusfofefe are:
     - `make`
 - `mb2 -t SailfishOS-latest-armv7hl build`
     - or whichever target you require ofcourse
-- you now have an RPM in the `RPMS` directory
+- you now have an RPM in the `RPMS` directory which you can copy to your
+  phone and install there
 
 ## To Do
 
@@ -53,6 +54,7 @@ The actual build steps for Pusfofefe are:
 - [X] add link to https://pushover.net/signup
 - [X] use `/home/nemo/.config/pusfofefe/config.lisp` for config
 - [ ] expand descriptions for ECL and EQL in About page
+- [ ] make refresh button on cover page functional
 - [ ] add support for two-factor auth
 - [ ] add support for entering session secrets and device UUIDs
 
