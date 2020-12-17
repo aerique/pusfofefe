@@ -81,9 +81,10 @@ Page {
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText
                 onLinkActivated: Qt.openUrlExternally(link)
-                text: qsTr("<style>a:link { color: " + Theme.primaryColor + "; }</style>" +
-                           "(To sign up for Pushover please go to: " +
-                           "<a href='https://pushover.net/signup'>https://pushover.net/signup</a>.)")
+                text: "<style>a:link { color: " + Theme.primaryColor +
+                      "; }</style>(To sign up for Pushover please go to: " +
+                      "<a href='https://pushover.net/signup'>https://" +
+                      "pushover.net/signup</a>.)"
             }
 
             SectionHeader {

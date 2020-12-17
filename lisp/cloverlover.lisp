@@ -41,6 +41,10 @@
   (set-my-model))
 
 
+(defun notification-test ()
+  (qml:qml-call "notification" "publish"))
+
+
 ;;; Getters
 ;;;
 ;;; As much as I hate them (it's a bit of a smell that something hasn't been
