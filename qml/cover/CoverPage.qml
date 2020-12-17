@@ -1,18 +1,17 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import EQL5 1.0
 
 CoverBackground {
     Label {
-        //id: label
         anchors.centerIn: parent
-        text: qsTr("Pusfofefe")
+        text: "Pusfofefe"
     }
 
     CoverActionList {
-        //id: coverAction
-
         CoverAction {
             iconSource: "image://theme/icon-cover-sync"
+            onTriggered: Lisp.call("cloverlover::pf-download-messages")
         }
     }
 }

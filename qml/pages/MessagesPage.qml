@@ -52,7 +52,7 @@ Page {
 
             MenuItem {
                 text: "Refresh"
-                onClicked: console.log("Refresh")
+                onClicked: Lisp.call("cloverlover::pf-download-messages")
             }
         }
 

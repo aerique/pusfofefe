@@ -117,6 +117,23 @@
   (format t "Config written.~%"))
 
 
+(defun pf-download-messages ()
+  (let ((response (download-messages *pushover-secret* *pushover-device-id*)))
+    (if (= 0 (getf response :status))
+        (progn (format t "[pf-download-messages] Could not download ~
+                          messages: ~S~%" response)
+               (qml:qml-set "notification" "previewBody"
+                            (first (getf response :errors)))
+               (qml:qml-set "notification" "body"
+                            (first (getf response :errors)))
+               (qml:qml-call "notification" "publish"))
+        (progn (format t "[pf-download-messages] ~D message(s) downloaded.~%"
+                       (length (getf response :messages)))
+               (format t "response: ~S~%" response)
+               (setf *pushover-messages* (getf response :messages))
+               (set-my-model)))))
+
+
 (defun login-and-register (email password)
   (setf *pushover-email*    email
         *pushover-password* password)
