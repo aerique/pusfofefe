@@ -104,13 +104,15 @@
     (format t "Writing config ~S... " cfg)
     (finish-output)
     (with-open-file (f cfg :direction :output :if-exists :supersede)
-      (format f "(defparameter *pushover-email*     ~S)~%~
+      (format f "(in-package :cloverlover)~%~%~
+                 (defparameter *pushover-email*     ~S)~%~
                  (defparameter *pushover-password*  ~S)~%~
                  (defparameter *pushover-secret*    ~S)~%~
                  (defparameter *pushover-device-id* ~S)~%~
-                 (defparameter *pushover-refresh*   ~D)~%"
+                 (defparameter *pushover-refresh*   ~D)~%~
+                 (defparameter *pushover-messages* '~S)~%"
               *pushover-email* *pushover-password* *pushover-secret*
-              *pushover-device-id* *pushover-refresh*)))
+              *pushover-device-id* *pushover-refresh* *pushover-messages*)))
   (format t "Config written.~%"))
 
 
