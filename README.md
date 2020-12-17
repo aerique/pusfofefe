@@ -5,6 +5,11 @@ A Pushover client written in Common Lisp.
 Thanks to [Renaud Casenave-Péré](https://openrepos.net/user/856/programs)
 for packaging both ECL and EQL5.
 
+The canonical home page of this project is https://git.sr.ht/~aerique/pusfofefe
+
+(This project is also pushed to GitLab and GitHub but those sites are
+not monitored for support.)
+
 ## Usage
 
 1. Go to the Settings page,
