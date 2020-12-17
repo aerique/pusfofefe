@@ -23,6 +23,7 @@
 ;;;
 ;;; https://gitlab.com/eql/EQL5/-/blob/master/examples/M-modules/quick/item-model/list-model.lisp
 
+;; XXX rename to `set-messages-model`
 (defun set-my-model ()
   (eql:qlet ((data (eql:qvariant-from-value *pushover-messages*
                                             "QStringList")))
@@ -123,7 +124,6 @@
           email password)
   (let ((*print-pretty* nil)
         (response (login email password)))
-    (format t ">>> ~S~%" response)
     (if (= 0 (getf response :status))
         (progn (format t "[login-and-register] Could not login: ~S~%" response)
                (qml:qml-set "notification" "previewBody"
@@ -133,10 +133,17 @@
                (qml:qml-call "notification" "publish"))
         (progn (format t "[login-and-register] Received secret <<~S>>.~%"
                        (getf response :secret))
-               (setf *pushover-secret* (getf response :secret))
+               (setf *pushover-secret* (getf response :secret))))
+    (format t "Registering device...~%")
+    (setf response (register-new-device *pushover-secret* *app-name*))
+    (if (= 0 (getf response :status))
+        (progn (format t "[login-and-register] Could not register device: ~S~%"
+                       response)
+               (qml:qml-set "notification" "previewBody"
+                            (first (getf response :errors)))
+               (qml:qml-set "notification" "body"
+                            (first (getf response :errors)))
+               (qml:qml-call "notification" "publish"))
+        (progn (format t "Device registered <<~S>>.~%" (getf response :id))
+               (setf *pushover-device-id* (getf response :id))
                (write-config)))))
-    ;(format t "Registering device...~%")
-    ;(setf device-id (register-new-device secret *app-name*))
-    ;(setf *pushover-device-id* device-id)
-    ;(format t "Device registered <<~S>>.~%" device-id)
-    ;(write-credentials)))
