@@ -58,8 +58,16 @@ The actual build steps for Pusfofefe are:
 - [X] use proper primary and hint colors for text, links and input
 - [X] add link to https://pushover.net/signup
 - [X] use `/home/nemo/.config/pusfofefe/config.lisp` for config
+- [X] make refresh button on cover page functional
+- [ ] fix display of messages (or just truncate to one line)
+- [ ] save messages to a different file than config
+- [ ] proper dialog for logging in
 - [ ] expand descriptions for ECL and EQL in About page
-- [ ] make refresh button on cover page functional
+- [ ] switch from StringList model to an object
+    - this will allow us to have more metadata on the message and to
+      display it in different ways in the front-end
+    - will also allow us easily manipulate the list of messages (f.e. to
+      delete individual messages)
 - [ ] add support for two-factor auth
 - [ ] add support for entering session secrets and device UUIDs
 
