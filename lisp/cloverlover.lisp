@@ -129,8 +129,10 @@
                (qml:qml-call "notification" "publish"))
         (progn (format t "[pf-download-messages] ~D message(s) downloaded.~%"
                        (length (getf response :messages)))
-               (format t "response: ~S~%" response)
-               (setf *pushover-messages* (getf response :messages))
+               (setf *pushover-messages*
+                     (append *pushover-messages*
+                             (loop for msg in (getf response :messages)
+                                   collect (getf msg :message))))
                (set-my-model)))))
 
 
