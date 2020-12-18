@@ -55,6 +55,7 @@ The actual build steps for Pusfofefe are:
 
 ## To Do
 
+- [ ] add instructions on adding Cloverlover to Quicklisp
 - [X] use proper primary and hint colors for text, links and input
 - [X] add link to https://pushover.net/signup
 - [X] use `/home/nemo/.config/pusfofefe/config.lisp` for config
