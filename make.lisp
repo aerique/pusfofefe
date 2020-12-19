@@ -14,7 +14,8 @@
                  :monolithic t
                  :type :static-library
                  :prologue-code '(require :ecl-quicklisp)
-                 :move-here "./")
+                 :move-here "./"
+                 :init-name "init_lib_APP__ALL_SYSTEMS")
 
 (let ((lib-name "libapp.a"))
   (when (probe-file lib-name)
