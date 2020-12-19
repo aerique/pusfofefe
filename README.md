@@ -53,9 +53,21 @@ The actual build steps for Pusfofefe are:
 - you now have an RPM in the `RPMS` directory which you can copy to your
   phone and install there
 
+The first time you do the above steps it will all fail because ECL
+cannot find the Cloverlover library.  Still, this paragraph is at the
+end because by now Quicklisp will have been installed; doing this by
+hand for people unfamiliar with Common Lisp is too complicated.  To make
+the library available:
+
+- `cd ~/projects`
+- `git clone https://git.sr.ht/~aerique/cloverlover`
+- `cd ~/quicklisp/local-projects`
+- `ln -s ~/projects/cloverlover/cloverlover.asd .`
+
+And build again.
+
 ## To Do
 
-- [ ] add instructions on adding Cloverlover to Quicklisp
 - [X] use proper primary and hint colors for text, links and input
 - [X] add link to https://pushover.net/signup
 - [X] use `/home/nemo/.config/pusfofefe/config.lisp` for config
