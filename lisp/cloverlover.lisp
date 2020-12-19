@@ -82,6 +82,10 @@
 
 ;;; Functions
 
+(defun pf-cover-message ()
+  (format nil "~D messages" (length *pushover-messages*)))
+
+
 (defun path-to-config-file ()
   (let* ((dir (directory-namestring (eql:|writableLocation.QStandardPaths|
                                      eql:|QStandardPaths.AppConfigLocation|)))
