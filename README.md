@@ -10,16 +10,16 @@ The canonical home page of this project is https://git.sr.ht/~aerique/pusfofefe
 (This project is also pushed to GitLab and GitHub but those sites are
 not monitored for support.)
 
+## Dependencies
+
+- [SailfishOS Builds in Docker](https://git.sr.ht/~aerique/sfosbid)
+- [Cloverlover](https://git.sr.ht/~aerique/cloverlover)
+
+(See below in "Build".)
+
 ## Usage
 
-1. Go to the Settings page,
-1. Enter your Pushover credentials and press the Login button.
-1. Go back to the Main page.
-
-Any queued messages should have been retrieved by now.
-
-As long as the app is in the foreground or minimized it will
-periodically (configurable in Settings) retrieve new messages.
+**TBD**
 
 ### Troubleshooting
 
