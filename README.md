@@ -68,14 +68,23 @@ And build again.
 
 ## To Do
 
-- [X] use proper primary and hint colors for text, links and input
-- [X] add link to https://pushover.net/signup
-- [X] use `/home/nemo/.config/pusfofefe/config.lisp` for config
-- [X] make refresh button on cover page functional
+- [x] use proper primary and hint colors for text, links and input
+- [x] add link to https://pushover.net/signup
+- [x] use `/home/nemo/.config/pusfofefe/config.lisp` for config
+- [x] make refresh button on cover page functional
+- [x] proper dialog for logging in
+- [ ] show progress when logging in
+- [ ] show error page on login failure
 - [ ] fix display of messages (or just truncate to one line)
 - [ ] save messages to a different file than config
-- [ ] proper dialog for logging in
 - [ ] expand descriptions for ECL and EQL in About page
+- [ ] try again to make deploy workflow one command
+    - `sb2 -t SailfishOS-latest-armv7hl -m sdk-build -R`
+        - `qmake`
+        - `make`
+    - `mb2 -t SailfishOS-latest-armv7hl build`
+    - `scp projects/pusfofefe/RPMS/pusfofefe-0.2-1.armv7hl.rpm nemo@192.168.2.15:`
+    - `pkcon -y install-local pusfofefe-0.2-1.armv7hl.rpm`
 - [ ] switch from StringList model to an object
     - this will allow us to have more metadata on the message and to
       display it in different ways in the front-end

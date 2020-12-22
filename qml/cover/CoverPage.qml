@@ -13,7 +13,7 @@ CoverBackground {
     Label {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
-        // FIXME this does not update when refresh below is used
+        // FIXME this does not update when refresh / sync below is used
         text: Lisp.call("cloverlover::pf-cover-message")
     }
 

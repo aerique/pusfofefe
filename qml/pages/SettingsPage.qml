@@ -42,35 +42,23 @@ Page {
 
             TextField {
                 id: pushoverEmail
-                inputMethodHints: Qt.ImhNoAutoUppercase
                 width: parent.width
                 label: "E-mail Address"
                 placeholderText: label
                 text: Lisp.call("cloverlover::get-pushover-email")
 
-                EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                EnterKey.onClicked: pushoverPassword.focus = true
+                readOnly: true
+
+                onClicked: pageStack.push(Qt.resolvedUrl("LoginDialog.qml"))
             }
 
             PasswordField {
                 id: pushoverPassword
-                //width: parent.width
                 text: Lisp.call("cloverlover::get-pushover-password")
 
-                EnterKey.iconSource: "image://theme/icon-m-accept"
-                EnterKey.onClicked: Lisp.call("cloverlover::login-and-register",
-                                              pushoverEmail.text,
-                                              pushoverPassword.text)
-            }
+                readOnly: true
 
-            Button {
-                id: submitCredentials
-                x: Theme.horizontalPageMargin
-                text: "Login to Pushover"
-
-                onClicked: Lisp.call("cloverlover::login-and-register",
-                                     pushoverEmail.text,
-                                     pushoverPassword.text)
+                onClicked: pageStack.push(Qt.resolvedUrl("LoginDialog.qml"))
             }
 
             Label {
@@ -88,7 +76,7 @@ Page {
             }
 
             SectionHeader {
-                text: "App"
+                text: "General"
             }
 
             TextField {

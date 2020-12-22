@@ -17,8 +17,10 @@ Page {
 
             Label {
                 x: Theme.horizontalPageMargin
-                anchors.verticalCenter: parent.verticalCenter
-                color: Theme.primaryColor
+                //anchors.verticalCenter: parent.verticalCenter
+                //color: Theme.primaryColor
+                //elide: TrucationMode.Fade
+                truncationMode: TruncationMode.Fade
                 text: modelData
             }
 
