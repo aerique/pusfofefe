@@ -73,11 +73,13 @@ And build again.
 - [x] use `/home/nemo/.config/pusfofefe/config.lisp` for config
 - [x] make refresh button on cover page functional
 - [x] proper dialog for logging in
+- [x] save messages to a different file than config
 - [ ] show progress when logging in
 - [ ] show error page on login failure
 - [ ] fix display of messages (or just truncate to one line)
-- [ ] save messages to a different file than config
+- [ ] have dropdown list for `*pushover-refresh*`
 - [ ] expand descriptions for ECL and EQL in About page
+- [ ] figure out why ECL/EQL won't build from `mb2` step below
 - [ ] try again to make deploy workflow one command
     - `sb2 -t SailfishOS-latest-armv7hl -m sdk-build -R`
         - `qmake`

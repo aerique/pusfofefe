@@ -24,7 +24,7 @@ Page {
                 text: modelData
             }
 
-            onClicked: Lisp.call("cloverlover::test-update")
+            //onClicked: Lisp.call("cloverlover::test-update")
         }
 
         // XXX This should become a Component?

@@ -29,6 +29,7 @@
 (defun start ()
   #+app-debug (start-slynk)
   (cloverlover::read-config)
+  (cloverlover::read-messages)
   (cloverlover::set-my-model)
   (ini-quick-view (main-qml))
   (qconnect (qview) "statusChanged(QQuickView::Status)"

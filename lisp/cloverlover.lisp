@@ -16,7 +16,7 @@
 (defparameter *pushover-device-id* "")
 (defparameter *pushover-refresh*   10)
 
-(defparameter *pushover-messages* '("app" "not" "miss"))
+(defparameter *pushover-messages* '())
 
 
 ;;; Model
@@ -28,17 +28,11 @@
   (eql:qlet ((data (eql:qvariant-from-value *pushover-messages*
                                             "QStringList")))
     (eql:|setContextProperty| (qml:root-context) "myModel" data)))
-    ;; This doesn't seem to work:
-    ;(qml:qml-set (qml:root-context) "myModel" data)))
-
-
-(defun test-update ()
-  (setf *pushover-messages* (append *pushover-messages* (list (format nil "~D" (get-universal-time)))))
-  (set-my-model))
 
 
 (defun clear-messages ()
-  (setf *pushover-messages* '("stub message"))
+  (setf *pushover-messages* '())
+  (write-messages)
   (set-my-model))
 
 
@@ -114,54 +108,81 @@
                  (defparameter *pushover-password*  ~S)~%~
                  (defparameter *pushover-secret*    ~S)~%~
                  (defparameter *pushover-device-id* ~S)~%~
-                 (defparameter *pushover-refresh*   ~D)~%~
-                 (defparameter *pushover-messages* '~S)~%"
+                 (defparameter *pushover-refresh*   ~D)~%"
               *pushover-email* *pushover-password* *pushover-secret*
-              *pushover-device-id* *pushover-refresh* *pushover-messages*)))
+              *pushover-device-id* *pushover-refresh*)))
   (format t "Config written.~%"))
+
+
+(defun path-to-messages-file ()
+  (let* ((dir (directory-namestring (eql:|writableLocation.QStandardPaths|
+                                     eql:|QStandardPaths.AppConfigLocation|)))
+         (path (mkstr dir "messages.lisp")))
+    (ensure-directories-exist path)
+    path))
+
+
+(defun read-messages ()
+  (let ((msgs (path-to-messages-file)))
+    (format t "Reading messages from ~S... " msgs)
+    (finish-output)
+    (if (probe-file msgs)
+        (progn (load msgs)
+               (format t "~D messages read.~%" (length *pushover-messages*)))
+        (format t "No messages file found.~%" msgs))))
+
+
+;;; XXX only do this when application is getting closed (or would that take
+;;;     too long?)
+(defun write-messages ()
+  (let ((msgs (path-to-messages-file)))
+    (format t "Writing messages to ~S... " msgs)
+    (finish-output)
+    (with-open-file (f msgs :direction :output :if-exists :supersede)
+      (format f "(in-package :cloverlover)~%~%~
+                 (defparameter *pushover-messages*~%  '~S)~%"
+              *pushover-messages*)))
+  (format t "~D messages written.~%" (length *pushover-messages)))
 
 
 (defun pf-download-messages ()
   (let ((response (download-messages *pushover-secret* *pushover-device-id*)))
     (if (= 0 (getf response :status))
-        (progn (format t "[pf-download-messages] Could not download ~
-                          messages: ~S~%" response)
+        (progn (format t "Could not download messages: ~S~%" response)
                (qml:qml-set "notification" "previewBody"
                             (first (getf response :errors)))
                (qml:qml-set "notification" "body"
                             (first (getf response :errors)))
                (qml:qml-call "notification" "publish"))
-        (progn (format t "[pf-download-messages] ~D message(s) downloaded.~%"
+        (progn (format t "~D message(s) downloaded.~%"
                        (length (getf response :messages)))
                (setf *pushover-messages*
                      (append *pushover-messages*
                              (loop for msg in (getf response :messages)
                                    collect (getf msg :message))))
+               (write-messages)
                (set-my-model)))))
 
 
 (defun login-and-register (email password)
   (setf *pushover-email*    email
         *pushover-password* password)
-  (format t "[login-and-register] Logging in with <<~S>> <<~S>>...~%"
-          email password)
+  (format t "Logging in with <<~S>> <<~S>>...~%" email password)
   (let ((*print-pretty* nil)
         (response (login email password)))
     (if (= 0 (getf response :status))
-        (progn (format t "[login-and-register] Could not login: ~S~%" response)
+        (progn (format t "Could not login: ~S~%" response)
                (qml:qml-set "notification" "previewBody"
                             (first (getf response :errors)))
                (qml:qml-set "notification" "body"
                             (first (getf response :errors)))
                (qml:qml-call "notification" "publish"))
-        (progn (format t "[login-and-register] Received secret <<~S>>.~%"
-                       (getf response :secret))
+        (progn (format t "Received secret <<~S>>.~%" (getf response :secret))
                (setf *pushover-secret* (getf response :secret))))
     (format t "Registering device...~%")
     (setf response (register-new-device *pushover-secret* *app-name*))
     (if (= 0 (getf response :status))
-        (progn (format t "[login-and-register] Could not register device: ~S~%"
-                       response)
+        (progn (format t "Could not register device: ~S~%" response)
                (qml:qml-set "notification" "previewBody"
                             (first (getf response :errors)))
                (qml:qml-set "notification" "body"
