@@ -4,27 +4,49 @@ import Nemo.Notifications 1.0
 import EQL5 1.0
 
 Page {
-    id: page
-
     SilicaListView {
         anchors.fill: parent
         model: messagesModel
 
         header: PageHeader { title: "Messages" }
 
-        delegate: BackgroundItem {
-            id: delegate
+        delegate: ListItem {
+            id: listEntry
 
-            Label {
-                x: Theme.horizontalPageMargin
-                //anchors.verticalCenter: parent.verticalCenter
-                //color: Theme.primaryColor
-                //elide: TrucationMode.Fade
-                truncationMode: TruncationMode.Fade
-                text: modelData
+            Column {
+                anchors.fill: parent
+                width: parent.width
+
+                Label {
+                //TextField {
+                    color: listEntry.highlighted ? Theme.highlightColor : Theme.primaryColor
+                    x: Theme.horizontalPageMargin
+                    width: parent.width - (2 * Theme.horizontalPageMargin)
+                    //truncationMode: TruncationMode.Fade
+                    //readOnly: true
+                    maximumLineCount: 1
+                    text: modelData
+
+                    anchors {
+                        left: parent.left
+                        right: parent.right
+                        leftMargin: Theme.paddingMedium
+                        rightMargin: Theme.paddingMedium
+                        //verticalCenter: parent.verticalCenter
+                    }
+                }
+
+                Separator {}
             }
 
-            //onClicked: Lisp.call("cloverlover::test-update")
+            onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"))
+
+            menu: ContextMenu {
+                MenuItem {
+                    text: "Delete"
+                    onClicked: listEntry.remorseAction("Deleting message...", function() { console.log("Deleting") })
+                }
+            }
         }
 
         // XXX This should become a Component?
