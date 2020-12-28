@@ -79,19 +79,45 @@ Page {
                 text: "General"
             }
 
-            TextField {
-                id: refreshTime
-                inputMethodHints: Qt.ImhDigitsOnly
-                width: parent.width
-                label: "minutes between Pushover checks"
-                // 1m < t < 1d
-                validator: IntValidator { bottom: 1; top: 1440 }
-                text: Lisp.call("cloverlover::get-pushover-refresh")
+            //TextField {
+            //    id: refreshTime
+            //    inputMethodHints: Qt.ImhDigitsOnly
+            //    width: parent.width
+            //    label: "minutes between Pushover checks"
+            //    // 1m < t < 1d
+            //    validator: IntValidator { bottom: 1; top: 1440 }
+            //    text: Lisp.call("cloverlover::get-pushover-refresh")
 
-                EnterKey.iconSource: "image://theme/icon-m-accept"
-                EnterKey.onClicked: Lisp.call(
-                    "cloverlover::set-pushover-refresh", refreshTime.text)
+            //    EnterKey.iconSource: "image://theme/icon-m-accept"
+            //    EnterKey.onClicked: Lisp.call(
+            //        "cloverlover::set-pushover-refresh", refreshTime.text)
+            //}
+
+            ComboBox {
+                id: combobox
+                width: parent.width
+                description: "between Pushover checks"
+                currentIndex: 2
+                menu: ContextMenu {
+                    MenuItem { text: "1 minute" }
+                    MenuItem { text: "5 minutes" }
+                    MenuItem { text: "10 minutes" }
+                    MenuItem { text: "1 hour" }
+                    MenuItem { text: "4 hours" }
+                    //MenuItem { text: "1 day" }
+                    onClicked: console.log(">>> " + combobox.value)
+                }
             }
+
+            //Slider {
+            //    width: parent.width
+            //    minimumValue: 1
+            //    maximumValue: 240
+            //    value: 10
+            //    valueText: value
+            //    label: "minutes between Pushover checks"
+            //    stepSize: 1
+            //}
         }
     }
 }

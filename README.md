@@ -87,9 +87,6 @@ And build again.
     - `mb2 -t SailfishOS-latest-armv7hl build`
     - `scp projects/pusfofefe/RPMS/pusfofefe-0.2-1.armv7hl.rpm nemo@192.168.2.15:`
     - `pkcon -y install-local pusfofefe-0.2-1.armv7hl.rpm`
-- [ ] switch from StringList model to an object
-    - this will allow us to have more metadata on the message and to
-      display it in different ways in the front-end
 - [ ] add support for two-factor auth
 - [ ] add support searching messages
 - [ ] add support showing only messages of a certain type
@@ -98,6 +95,9 @@ And build again.
 
 - [ ] add buttons on MessagePage to go to next and previous message
 - [ ] add support for entering session secrets and device UUIDs
+- [ ] switch from StringList model to an object
+    - this will allow us to have more metadata on the message and to
+      display it in different ways in the front-end
 - [ ] add support for landscape orientation
 - [ ] add Pushover [websocket](https://pushover.net/api/client#websocket)
       support
