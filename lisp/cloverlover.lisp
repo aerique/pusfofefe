@@ -154,6 +154,13 @@
   (set-messages-model))
 
 
+(defun find-message (id)
+  (loop for msg in *pushover-messages-internal*
+        do (when (= id (getf msg :id))
+             ;(format t "Message found: ~S~%" msg)
+             (return-from find-message msg))))
+
+
 (defun pf-download-messages ()
   (let ((response (download-messages *pushover-secret* *pushover-device-id*)))
     (if (= 0 (getf response :status))
@@ -168,7 +175,9 @@
                (setf *pushover-response* response
                      *pushover-messages-internal*
                      (append *pushover-messages-internal*
-                             (getf response :messages)))
+                             (loop for msg in (getf response :messages)
+                                   when (not (find-message (getf msg :id)))
+                                     collect msg)))
                (write-messages)
                (set-messages-model)))))
 
