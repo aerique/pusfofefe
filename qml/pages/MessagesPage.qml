@@ -15,6 +15,8 @@ Page {
 
             Label {
                 id: label
+                // XXX not needed?
+                //color: listEntry.highlighted ? Theme.highlightColor : Theme.primaryColor
                 // No idea why this works and the right anchors below don't.
                 width: parent.width - (2 * Theme.paddingLarge)
                 truncationMode: TruncationMode.Fade
