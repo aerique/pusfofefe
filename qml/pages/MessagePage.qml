@@ -8,6 +8,9 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
 
+        // XXX This should become a Component?
+        RemorsePopup { id: remorse }
+
         PullDownMenu {
             MenuItem {
                 text: "Delete"

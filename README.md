@@ -74,11 +74,11 @@ And build again.
 - [x] make refresh button on cover page functional
 - [x] proper dialog for logging in
 - [x] save messages to a different file than config
-- [ ] show progress when logging in
-- [ ] show error page on login failure
-- [ ] fix display of messages (or just truncate to one line)
+- [x] fix display of messages (or just truncate to one line)
 - [ ] have dropdown list for `*pushover-refresh*`
 - [ ] expand descriptions for ECL and EQL in About page
+- [ ] show progress when logging in
+- [ ] show error page on login failure
 - [ ] figure out why ECL/EQL won't build from `mb2` step below
 - [ ] try again to make deploy workflow one command
     - `sb2 -t SailfishOS-latest-armv7hl -m sdk-build -R`

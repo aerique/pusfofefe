@@ -13,38 +13,37 @@ Page {
         delegate: ListItem {
             id: listEntry
 
-            Column {
-                anchors.fill: parent
-                width: parent.width
+            Label {
+                id: label
+                // No idea why this works and the right anchors below don't.
+                width: parent.width - (2 * Theme.paddingLarge)
+                truncationMode: TruncationMode.Fade
+                maximumLineCount: 1
+                text: modelData
 
-                Label {
-                //TextField {
-                    color: listEntry.highlighted ? Theme.highlightColor : Theme.primaryColor
-                    x: Theme.horizontalPageMargin
-                    width: parent.width - (2 * Theme.horizontalPageMargin)
-                    //truncationMode: TruncationMode.Fade
-                    //readOnly: true
-                    maximumLineCount: 1
-                    text: modelData
-
-                    anchors {
-                        left: parent.left
-                        right: parent.right
-                        leftMargin: Theme.paddingMedium
-                        rightMargin: Theme.paddingMedium
-                        //verticalCenter: parent.verticalCenter
-                    }
+                anchors {
+                    left: parent.left
+                    leftMargin: Theme.paddingLarge
+                    // See `width` above.
+                    //right: parent.right
+                    //rightMargin: Theme.paddingLarge
+                    verticalCenter: parent.verticalCenter
                 }
-
-                Separator {}
             }
+
+            // FIXME can't get this to appear
+            //Separator {
+            //    horizontalAlignment: Qt.AlignHCenter
+            //    anchors.top: label.bottom
+            //}
 
             onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"))
 
             menu: ContextMenu {
                 MenuItem {
                     text: "Delete"
-                    onClicked: listEntry.remorseAction("Deleting message...", function() { console.log("Deleting") })
+                    onClicked: listEntry.remorseAction("Deleting message...",
+                               function() { console.log("Message deleted.") })
                 }
             }
         }
