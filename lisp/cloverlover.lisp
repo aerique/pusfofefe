@@ -142,7 +142,7 @@
       (format f "(in-package :cloverlover)~%~%~
                  (defparameter *pushover-messages*~%  '~S)~%"
               *pushover-messages*)))
-  (format t "~D messages written.~%" (length *pushover-messages)))
+  (format t "~D messages written.~%" (length *pushover-messages*)))
 
 
 (defun pf-download-messages ()
