@@ -93,10 +93,13 @@ And build again.
     - will also allow us easily manipulate the list of messages (f.e. to
       delete individual messages)
 - [ ] add support for two-factor auth
-- [ ] add support for entering session secrets and device UUIDs
+- [ ] add support searching messages
+- [ ] add support showing only messages of a certain type
 
 ### Maybe
 
+- [ ] add buttons on MessagePage to go to next and previous message
+- [ ] add support for entering session secrets and device UUIDs
 - [ ] add support for landscape orientation
 - [ ] add Pushover [websocket](https://pushover.net/api/client#websocket)
       support
