@@ -90,8 +90,6 @@ And build again.
 - [ ] switch from StringList model to an object
     - this will allow us to have more metadata on the message and to
       display it in different ways in the front-end
-    - will also allow us easily manipulate the list of messages (f.e. to
-      delete individual messages)
 - [ ] add support for two-factor auth
 - [ ] add support searching messages
 - [ ] add support showing only messages of a certain type

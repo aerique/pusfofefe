@@ -44,8 +44,12 @@ Page {
             menu: ContextMenu {
                 MenuItem {
                     text: "Delete"
-                    onClicked: listEntry.remorseAction("Deleting message...",
-                               function() { console.log("Message deleted.") })
+                    // FIXME having two remorses running gives an error
+                    // FIXME scrolling the remorse out of view causes it too
+                    onClicked: listEntry.remorseAction("Deleting message",
+                        function() {
+                            Lisp.call("cloverlover::pf-delete-message", index)
+                        })
                 }
             }
         }
@@ -70,8 +74,7 @@ Page {
 
             MenuItem {
                 text: "Clear All Messages"
-                onClicked: remorse.execute(
-                    "Deleting all messages",
+                onClicked: remorse.execute("Deleting all messages",
                     function() { Lisp.call("cloverlover::clear-messages") })
             }
 

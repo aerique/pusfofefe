@@ -146,6 +146,14 @@
   (format t "~D messages written.~%" (length *pushover-messages-internal*)))
 
 
+(defun pf-delete-message (index)
+  (setf *pushover-messages-internal*
+        (remove (nth index *pushover-messages-internal*)
+                *pushover-messages-internal*))
+  (write-messages)
+  (set-messages-model))
+
+
 (defun pf-download-messages ()
   (let ((response (download-messages *pushover-secret* *pushover-device-id*)))
     (if (= 0 (getf response :status))
