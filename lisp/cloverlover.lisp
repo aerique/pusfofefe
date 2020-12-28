@@ -26,6 +26,9 @@
 ;;; https://gitlab.com/eql/EQL5/-/blob/master/examples/M-modules/quick/item-model/list-model.lisp
 
 (defun set-messages-model ()
+  ;; sort messages by ascending date first
+  (setf *pushover-messages-internal* (sort *pushover-messages-internal* #'>
+                                           :key (lambda (x) (getf x :date))))
   (setf *pushover-messages* (loop for msg in *pushover-messages-internal*
                                   collect (getf msg :message)))
   (eql:qlet ((data (eql:qvariant-from-value *pushover-messages*
