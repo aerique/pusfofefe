@@ -16,7 +16,9 @@
 (defparameter *pushover-device-id* "")
 (defparameter *pushover-refresh*   10)
 
+(defparameter *pushover-response* nil)
 (defparameter *pushover-messages* '())
+(defparameter *pushover-messages-internal* '())
 
 
 ;;; Model
@@ -24,13 +26,15 @@
 ;;; https://gitlab.com/eql/EQL5/-/blob/master/examples/M-modules/quick/item-model/list-model.lisp
 
 (defun set-messages-model ()
+  (setf *pushover-messages* (loop for msg in *pushover-messages-internal*
+                                  collect (getf msg :message)))
   (eql:qlet ((data (eql:qvariant-from-value *pushover-messages*
                                             "QStringList")))
     (eql:|setContextProperty| (qml:root-context) "messagesModel" data)))
 
 
 (defun clear-messages ()
-  (setf *pushover-messages* '())
+  (setf *pushover-messages-internal* '())
   (write-messages)
   (set-messages-model))
 
@@ -69,14 +73,10 @@
   (write-config))
 
 
-(defun get-pushover-messages ()
-  *pushover-messages*)
-
-
 ;;; Functions
 
 (defun pf-cover-message ()
-  (format nil "~D messages" (length *pushover-messages*)))
+  (format nil "~D messages" (length *pushover-messages-internal*)))
 
 
 (defun path-to-config-file ()
@@ -127,7 +127,9 @@
     (finish-output)
     (if (probe-file msgs)
         (progn (load msgs)
-               (format t "~D messages read.~%" (length *pushover-messages*)))
+               (format t "~D messages read.~%"
+                       (length *pushover-messages-internal*))
+               (set-messages-model))
         (format t "No messages file found.~%" msgs))))
 
 
@@ -139,9 +141,9 @@
     (finish-output)
     (with-open-file (f msgs :direction :output :if-exists :supersede)
       (format f "(in-package :cloverlover)~%~%~
-                 (defparameter *pushover-messages*~%  '~S)~%"
-              *pushover-messages*)))
-  (format t "~D messages written.~%" (length *pushover-messages*)))
+                 (defparameter *pushover-messages-internal*~%  '~S)~%"
+              *pushover-messages-internal*)))
+  (format t "~D messages written.~%" (length *pushover-messages-internal*)))
 
 
 (defun pf-download-messages ()
@@ -155,10 +157,10 @@
                (qml:qml-call "notification" "publish"))
         (progn (format t "~D message(s) downloaded.~%"
                        (length (getf response :messages)))
-               (setf *pushover-messages*
-                     (append *pushover-messages*
-                             (loop for msg in (getf response :messages)
-                                   collect (getf msg :message))))
+               (setf *pushover-response* response
+                     *pushover-messages-internal*
+                     (append *pushover-messages-internal*
+                             (getf response :messages)))
                (write-messages)
                (set-messages-model)))))
 
