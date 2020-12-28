@@ -8,7 +8,7 @@ Page {
 
     SilicaListView {
         anchors.fill: parent
-        model:myModel
+        model: messagesModel
 
         header: PageHeader { title: "Messages" }
 

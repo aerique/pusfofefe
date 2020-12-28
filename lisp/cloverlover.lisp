@@ -23,17 +23,16 @@
 ;;;
 ;;; https://gitlab.com/eql/EQL5/-/blob/master/examples/M-modules/quick/item-model/list-model.lisp
 
-;; XXX rename to `set-messages-model`
-(defun set-my-model ()
+(defun set-messages-model ()
   (eql:qlet ((data (eql:qvariant-from-value *pushover-messages*
                                             "QStringList")))
-    (eql:|setContextProperty| (qml:root-context) "myModel" data)))
+    (eql:|setContextProperty| (qml:root-context) "messagesModel" data)))
 
 
 (defun clear-messages ()
   (setf *pushover-messages* '())
   (write-messages)
-  (set-my-model))
+  (set-messages-model))
 
 
 (defun notification-test ()
@@ -161,7 +160,7 @@
                              (loop for msg in (getf response :messages)
                                    collect (getf msg :message))))
                (write-messages)
-               (set-my-model)))))
+               (set-messages-model)))))
 
 
 (defun login-and-register (email password)
