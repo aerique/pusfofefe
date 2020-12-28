@@ -75,7 +75,7 @@ Page {
             MenuItem {
                 text: "Clear All Messages"
                 onClicked: remorse.execute("Deleting all messages",
-                    function() { Lisp.call("cloverlover::clear-messages") })
+                    function() { Lisp.call("cloverlover::pf-clear-messages") })
             }
 
             MenuItem {

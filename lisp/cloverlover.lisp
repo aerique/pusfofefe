@@ -26,7 +26,7 @@
 ;;; https://gitlab.com/eql/EQL5/-/blob/master/examples/M-modules/quick/item-model/list-model.lisp
 
 (defun set-messages-model ()
-  ;; sort messages by ascending date first
+  ;; sort messages by descending date
   (setf *pushover-messages-internal* (sort *pushover-messages-internal* #'>
                                            :key (lambda (x) (getf x :date))))
   (setf *pushover-messages* (loop for msg in *pushover-messages-internal*
@@ -34,12 +34,6 @@
   (eql:qlet ((data (eql:qvariant-from-value *pushover-messages*
                                             "QStringList")))
     (eql:|setContextProperty| (qml:root-context) "messagesModel" data)))
-
-
-(defun clear-messages ()
-  (setf *pushover-messages-internal* '())
-  (write-messages)
-  (set-messages-model))
 
 
 (defun notification-test ()
@@ -78,14 +72,25 @@
 
 ;;; Functions
 
-(defun pf-cover-message ()
-  (format nil "~D messages" (length *pushover-messages-internal*)))
+(defun find-message (id)
+  (loop for msg in *pushover-messages-internal*
+        do (when (= id (getf msg :id))
+             ;(format t "Message found: ~S~%" msg)
+             (return-from find-message msg))))
 
 
 (defun path-to-config-file ()
   (let* ((dir (directory-namestring (eql:|writableLocation.QStandardPaths|
                                      eql:|QStandardPaths.AppConfigLocation|)))
          (path (mkstr dir "config.lisp")))
+    (ensure-directories-exist path)
+    path))
+
+
+(defun path-to-messages-file ()
+  (let* ((dir (directory-namestring (eql:|writableLocation.QStandardPaths|
+                                     eql:|QStandardPaths.AppConfigLocation|)))
+         (path (mkstr dir "messages.lisp")))
     (ensure-directories-exist path)
     path))
 
@@ -116,14 +121,6 @@
   (format t "Config written.~%"))
 
 
-(defun path-to-messages-file ()
-  (let* ((dir (directory-namestring (eql:|writableLocation.QStandardPaths|
-                                     eql:|QStandardPaths.AppConfigLocation|)))
-         (path (mkstr dir "messages.lisp")))
-    (ensure-directories-exist path)
-    path))
-
-
 (defun read-messages ()
   (let ((msgs (path-to-messages-file)))
     (format t "Reading messages from ~S... " msgs)
@@ -149,19 +146,26 @@
   (format t "~D messages written.~%" (length *pushover-messages-internal*)))
 
 
+;;; Pusfofefe Functions
+;;;
+;;; These are called from QML.
+
+(defun pf-cover-message ()
+  (format nil "~D messages" (length *pushover-messages-internal*)))
+
+
+(defun pf-clear-messages ()
+  (setf *pushover-messages-internal* '())
+  (write-messages)
+  (set-messages-model))
+
+
 (defun pf-delete-message (index)
   (setf *pushover-messages-internal*
         (remove (nth index *pushover-messages-internal*)
                 *pushover-messages-internal*))
   (write-messages)
   (set-messages-model))
-
-
-(defun find-message (id)
-  (loop for msg in *pushover-messages-internal*
-        do (when (= id (getf msg :id))
-             ;(format t "Message found: ~S~%" msg)
-             (return-from find-message msg))))
 
 
 (defun pf-download-messages ()
@@ -185,7 +189,7 @@
                (set-messages-model)))))
 
 
-(defun login-and-register (email password)
+(defun pf-login-and-register (email password)
   (setf *pushover-email*    email
         *pushover-password* password)
   (format t "Logging in with <<~S>> <<~S>>...~%" email password)

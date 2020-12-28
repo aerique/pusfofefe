@@ -36,7 +36,7 @@ Dialog {
 
     onDone: {
         if (result = DialogResult.Accepted) {
-            Lisp.call("cloverlover::login-and-register",
+            Lisp.call("cloverlover::pf-login-and-register",
                       pushoverEmail.text, pushoverPassword.text)
         }
     }
