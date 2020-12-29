@@ -4,6 +4,25 @@ import Nemo.Notifications 1.0
 import EQL5 1.0
 
 Page {
+    // XXX This should become a Component?
+    RemorsePopup { id: remorse }
+
+    // XXX This should become a Component I guess?  Calling this from the
+    // SettingsPage also works, while it is only defined here.
+    Notification {
+        id: notification
+        objectName: "notification"  // so it can be called from Lisp
+        summary: "Pusfofefe Error"
+    }
+
+    // XXX component?
+    BusyLabel {
+        id: busy_label
+        objectName: "busy_label"
+        text: ""
+        running: false
+    }
+
     SilicaListView {
         anchors.fill: parent
         model: messagesModel
@@ -54,18 +73,6 @@ Page {
             }
         }
 
-        // XXX This should become a Component?
-        RemorsePopup { id: remorse }
-
-        // XXX This should become a Component I guess?  Calling this from the
-        // SettingsPage also works, while it is only defined here.
-        Notification {
-            // FIXME rename `id` and `objectName` to error_notification
-            id: notification
-            objectName: "notification"  // so it can be called from Lisp
-            summary: "Pusfofefe Error"
-        }
-
         PullDownMenu {
             MenuItem {
                 text: "Settings"
@@ -80,7 +87,18 @@ Page {
 
             MenuItem {
                 text: "Refresh"
-                onClicked: Lisp.call("cloverlover::pf-download-messages")
+                // So this doesn't really work, since the UI seems to be
+                // blocked by this function.  (Same if I set the busyLabel
+                // from Lisp.)
+                // Also tried a WorkerScript but then ECL goes mental with
+                // `ecl_import_current_thread`.
+                onClicked: function() {
+                    busy_label.text = "Retrieving new messages"
+                    busy_label.running = true
+                    Lisp.call("cloverlover::pf-download-messages")
+                    busy_label.running = false
+                }
+            }
             }
         }
 

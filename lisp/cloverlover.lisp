@@ -169,6 +169,8 @@
 
 
 (defun pf-download-messages ()
+  ;(qml:qml-set "busy_label" "text" "Retrieving new messages")
+  ;(qml:qml-set "busy_label" "running" t)
   (let ((response (download-messages *pushover-secret* *pushover-device-id*)))
     (if (= 0 (getf response :status))
         (progn (format t "Could not download messages: ~S~%" response)
@@ -187,6 +189,7 @@
                                      collect msg)))
                (write-messages)
                (set-messages-model)))))
+  ;(qml:qml-set "busy_label" "running" nil))
 
 
 (defun pf-login-and-register (email password)

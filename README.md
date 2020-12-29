@@ -77,7 +77,6 @@ And build again.
 - [x] fix display of messages (or just truncate to one line)
 - [ ] have dropdown list for `*pushover-refresh*`
 - [ ] expand descriptions for ECL and EQL in About page
-- [ ] show progress when logging in
 - [ ] show error page on login failure
 - [ ] figure out why ECL/EQL won't build from `mb2` step below
 - [ ] try again to make deploy workflow one command
@@ -87,6 +86,8 @@ And build again.
     - `mb2 -t SailfishOS-latest-armv7hl build`
     - `scp projects/pusfofefe/RPMS/pusfofefe-0.2-1.armv7hl.rpm nemo@192.168.2.15:`
     - `pkcon -y install-local pusfofefe-0.2-1.armv7hl.rpm`
+- [ ] show progress when logging in and retrieving messages
+    - this seems a little harder than expected
 - [ ] add support for two-factor auth
 - [ ] add support searching messages
 - [ ] add support showing only messages of a certain type
