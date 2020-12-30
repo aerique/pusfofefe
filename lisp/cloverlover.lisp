@@ -45,6 +45,38 @@
 ;;; As much as I hate them (it's a bit of a smell that something hasn't been
 ;;; thought out right): I see no better solution for now.
 
+(defun get-message-app (index)
+  (if (and (numberp index)
+           (>= index 0)
+           (< index (length *pushover-messages-internal*)))
+      (getf (nth index *pushover-messages-internal*) :app)
+      (format nil "Invalid message index: <<~S>>~%" index)))
+
+
+(defun get-message-date (index)
+  (if (and (numberp index)
+           (>= index 0)
+           (< index (length *pushover-messages-internal*)))
+      (getf (nth index *pushover-messages-internal*) :date)
+      (format nil "Invalid message index: <<~S>>~%" index)))
+
+
+(defun get-message-id (index)
+  (if (and (numberp index)
+           (>= index 0)
+           (< index (length *pushover-messages-internal*)))
+      (getf (nth index *pushover-messages-internal*) :id)
+      (format nil "Invalid message index: <<~S>>~%" index)))
+
+
+(defun get-message-text (index)
+  (if (and (numberp index)
+           (>= index 0)
+           (< index (length *pushover-messages-internal*)))
+      (getf (nth index *pushover-messages-internal*) :message)
+      (format nil "Invalid message index: <<~S>>~%" index)))
+
+
 (defun get-pushover-email ()
   *pushover-email*)
 

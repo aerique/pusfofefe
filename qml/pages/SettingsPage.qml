@@ -3,12 +3,12 @@ import Sailfish.Silica 1.0
 import EQL5 1.0
 
 Page {
+    RemorsePopup { id: remorse }
+
     SilicaFlickable {
         anchors.fill: parent
         contentWidth: parent.width
         contentHeight: column.height
-
-        RemorsePopup { id: remorse }
 
         PullDownMenu {
             MenuItem {
@@ -31,14 +31,9 @@ Page {
             spacing: Theme.paddingLarge
             width: parent.width
 
-            PageHeader {
-                id: pageHeader
-                title: "Settings"
-            }
+            PageHeader { title: "Settings" }
 
-            SectionHeader {
-                text: "Pushover"
-            }
+            SectionHeader { text: "Pushover" }
 
             TextField {
                 id: pushoverEmail
@@ -75,9 +70,7 @@ Page {
                       "pushover.net/signup</a>.)"
             }
 
-            SectionHeader {
-                text: "General"
-            }
+            SectionHeader { text: "General" }
 
             //TextField {
             //    id: refreshTime
