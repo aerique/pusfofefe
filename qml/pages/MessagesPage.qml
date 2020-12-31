@@ -52,7 +52,8 @@ Page {
             }
 
             onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
-                                      { messageIndex: index })
+                                      { messageIndex: index,
+                                        messageCount: slv.count })
 
             menu: ContextMenu {
                 MenuItem {

@@ -4,6 +4,7 @@ import EQL5 1.0
 
 Page {
     property int messageIndex: -1
+    property int messageCount: -1
 
     RemorsePopup { id: remorse }
 
@@ -12,16 +13,18 @@ Page {
         contentWidth: parent.width
         contentHeight: column.height
 
-        PullDownMenu {
-            MenuItem {
-                text: "Delete"
-                onClicked: remorse.execute("Deleting message",
-                    function() {
-                        Lisp.call("cloverlover::pf-delete-message",
-                                  messageIndex)
-                    })
-            }
-        }
+        // No delete from this view for now until we figure out a way to access
+        // the `slv.count` in the MessagesPage.
+        //PullDownMenu {
+        //    MenuItem {
+        //        text: "Delete"
+        //        onClicked: remorse.execute("Deleting message",
+        //            function() {
+        //                Lisp.call("cloverlover::pf-delete-message",
+        //                          messageIndex)
+        //            })
+        //    }
+        //}
 
         VerticalScrollDecorator {}
 
@@ -33,7 +36,7 @@ Page {
             // Shows the message index for Pusfofefe and has nothing to do
             // with Pushover.  Mainly for development for checking things.
             // Could be removed.
-            PageHeader { title: "Message " + messageIndex }
+            PageHeader { title: "Message (" + messageIndex + ", " + messageCount + ")" }
 
             DetailItem {
                 width: parent.width
@@ -73,7 +76,8 @@ Page {
                     //icon.source: "image://theme/icon-m-back"
                     onClicked: pageStack.replace(
                         Qt.resolvedUrl("MessagePage.qml"),
-                        { messageIndex: messageIndex - 1 })
+                        { messageIndex: messageIndex - 1,
+                          messageCount: messageCount })
                     // More user-friendly would be to skip to the last
                     // message.
                     enabled: messageIndex > 0
@@ -85,11 +89,11 @@ Page {
                     //icon.source: "image://theme/icon-m-forward"
                     onClicked: pageStack.replace(
                         Qt.resolvedUrl("MessagePage.qml"),
-                        { messageIndex: messageIndex + 1 })
+                        { messageIndex: messageIndex + 1,
+                          messageCount: messageCount })
                     // More user-friendly would be to skip to the first
                     // message.
-                    // FIXME figure this out
-                    //enabled: messageIndex < listView.n_items
+                    enabled: messageIndex < (messageCount - 1)
                 }
             }
         }
