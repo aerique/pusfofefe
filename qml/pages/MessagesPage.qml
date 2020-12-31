@@ -25,6 +25,7 @@ Page {
     }
 
     SilicaListView {
+        id: slv
         anchors.fill: parent
         model: messagesModel
 
@@ -95,5 +96,12 @@ Page {
         }
 
         VerticalScrollDecorator {}
+
+        // This didn't work when directly positioned below `delegate:` ?!
+        ViewPlaceholder {
+            enabled: slv.count == 0
+            text: "No messages"
+            hintText: "Pull down to refresh"
+        }
     }
 }
