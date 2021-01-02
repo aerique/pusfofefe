@@ -76,8 +76,11 @@ And build again.
 - [x] save messages to a different file than config
 - [x] fix display of messages (or just truncate to one line)
 - [ ] have dropdown list for `*pushover-refresh*`
+    - this has only been done for the frontend
 - [ ] expand descriptions for ECL and EQL in About page
 - [ ] show error page on login failure
+- [ ] make sure ASDF doesn't load on app start
+- [ ] include all Quicklisp packages with app
 - [ ] figure out why ECL/EQL won't build from `mb2` step below
 - [ ] try again to make deploy workflow one command
     - `sb2 -t SailfishOS-latest-armv7hl -m sdk-build -R`

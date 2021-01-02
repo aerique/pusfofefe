@@ -220,7 +220,15 @@
                                    when (not (find-message (getf msg :id)))
                                      collect msg)))
                (write-messages)
-               (set-messages-model)))))
+               (set-messages-model)
+               (if (> (length (getf response :messages)) 0)
+                   (progn (delete-messages *pushover-secret*
+                               *pushover-device-id*
+                               (highest-message *pushover-messages-internal*))
+                          (format t "Messages up to ~D deleted from server.~%"
+                               (highest-message *pushover-messages-internal*)))
+                   (format t "No new messages retrieved, nothing to delete ~
+                              from server.~%"))))))
   ;(qml:qml-set "busy_label" "running" nil))
 
 

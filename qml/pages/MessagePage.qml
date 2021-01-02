@@ -36,7 +36,8 @@ Page {
             // Shows the message index for Pusfofefe and has nothing to do
             // with Pushover.  Mainly for development for checking things.
             // Could be removed.
-            PageHeader { title: "Message (" + messageIndex + ", " + messageCount + ")" }
+            //PageHeader { title: "Message (" + messageIndex + ", " + messageCount + ")" }
+            PageHeader { title: "Message" }
 
             DetailItem {
                 width: parent.width
