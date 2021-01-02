@@ -75,6 +75,8 @@ And build again.
 - [x] proper dialog for logging in
 - [x] save messages to a different file than config
 - [x] fix display of messages (or just truncate to one line)
+- [ ] check format and timezone of time on MessagePage
+    - should be YYYY-MM-DD HH:MM:SS (ISO'ish) and UTC
 - [ ] have dropdown list for `*pushover-refresh*`
     - this has only been done for the frontend
 - [ ] expand descriptions for ECL and EQL in About page

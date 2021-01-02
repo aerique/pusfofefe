@@ -21,6 +21,30 @@
 (defparameter *pushover-messages-internal* '())
 
 
+;;; Move to cloverlover project
+;;; BEGIN
+
+;; https://en.wikipedia.org/wiki/Unix_time
+(defvar +unix-epoch-as-universal-time+
+        (encode-universal-time 0 0 0 1 1 1970 0))
+
+
+(defun universal-time-to-ymdhms (universal-time)
+  (multiple-value-bind (sec min hr day mon year)
+      (decode-universal-time universal-time)
+    (format nil "~2,'0D-~2,'0D-~2,'0D ~2,'0D:~2,'0D:~2,'0D"
+            year mon day hr min sec)))
+
+
+(defun unix-time-to-universal-time (unix-time)
+  (+ unix-time +unix-epoch-as-universal-time+))
+
+
+(defun unix-time-to-ymdhms (unix-time)
+  (universal-time-to-ymdhms (unix-time-to-universal-time unix-time)))
+;;; END
+
+
 ;;; Model
 ;;;
 ;;; https://gitlab.com/eql/EQL5/-/blob/master/examples/M-modules/quick/item-model/list-model.lisp
@@ -57,7 +81,10 @@
   (if (and (numberp index)
            (>= index 0)
            (< index (length *pushover-messages-internal*)))
-      (getf (nth index *pushover-messages-internal*) :date)
+      (let ((unix-time (getf (nth index *pushover-messages-internal*) :date)))
+        (if (integerp unix-time)
+            (universal-time-to-ymdhms (unix-time-to-universal-time unix-time))
+            (format nil "Invalid time: <<~S>>~%" unix-time)))
       (format nil "Invalid message index: <<~S>>~%" index)))
 
 
