@@ -19,7 +19,6 @@ Page {
                 anchors {
                     left: parent.left
                     leftMargin: Theme.paddingLarge
-                    verticalCenter: parent.verticalCenter
                 }
 
                 // XXX not needed?
@@ -28,6 +27,20 @@ Page {
                 truncationMode: TruncationMode.Fade
                 maximumLineCount: 1
                 text: modelData
+            }
+
+            Label {
+                anchors {
+                    top: label.bottom
+                    left: parent.left
+                    leftMargin: Theme.paddingLarge
+                }
+
+                width: parent.width - (2 * Theme.paddingLarge)
+                truncationMode: TruncationMode.Fade
+                maximumLineCount: 1
+                font.pixelSize: Theme.fontSizeExtraSmall
+                text: Lisp.call("cloverlover::get-message-date", index)
             }
 
             onClicked: pageStack.push(Qt.resolvedUrl("MessagePage.qml"),
