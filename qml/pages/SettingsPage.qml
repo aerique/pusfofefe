@@ -83,7 +83,7 @@ Page {
                 id: combobox
                 width: parent.width
                 description: "between Pushover checks"
-                currentIndex: 2
+                currentIndex: Lisp.call("cloverlover::get-pushover-refresh")
                 menu: ContextMenu {
                     MenuItem { text: "1 minute" }
                     MenuItem { text: "5 minutes" }
@@ -91,7 +91,8 @@ Page {
                     MenuItem { text: "1 hour" }
                     MenuItem { text: "4 hours" }
                     //MenuItem { text: "1 day" }
-                    onClicked: console.log(">>> " + combobox.value)
+                    onClicked: Lisp.call("cloverlover::set-pushover-refresh",
+                                         combobox.value)
                 }
             }
         }

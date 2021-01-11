@@ -23,6 +23,14 @@
 
 ;;; Move to cloverlover project
 ;;; BEGIN
+(defun ends-with (sequence subsequence)
+  (let ((seqlen (length sequence))
+        (sublen (length subsequence)))
+    (when (and (> sublen 0)
+               (<= sublen seqlen))
+      (equal (subseq sequence (- seqlen sublen)) subsequence))))
+
+
 (defun starts-with (sequence subsequence)
   (let ((sublen (length subsequence)))
     (when (and (> sublen 0)
@@ -127,11 +135,30 @@
 
 
 (defun get-pushover-refresh ()
-  *pushover-refresh*)
+  ;; This is a bit too much tied to the GUI for my liking.
+  (case *pushover-refresh*
+    (   60 0)
+    (  300 1)
+    (  600 2)
+    ( 3600 3)
+    (14400 4)
+    (otherwise -1)))
 
 (defun set-pushover-refresh (refresh-time)
-  (setf *pushover-refresh* refresh-time)
-  (format t "Pushover refresh time set to ~Dm.~%" refresh-time)
+  ;; A bit blunt but I don't want to import CL-PPCRE.
+  (let ((value (parse-integer (subseq refresh-time 0
+                                      (position #\space refresh-time))))
+        (multiplier (cond ((or (ends-with refresh-time "minute")
+                               (ends-with refresh-time "minutes"))
+                           60)
+                          ((or (ends-with refresh-time "hour")
+                               (ends-with refresh-time "hours"))
+                           (* 60 60))
+                          (t (pf-feedback (mkstr "Unknown multiplier: "
+                                                 refresh-time))
+                             (return-from set-pushover-refresh)))))
+    (setf *pushover-refresh* (* value multiplier)))
+  (format t "Pushover refresh time set to ~Ds.~%" *pushover-refresh*)
   (write-config))
 
 
