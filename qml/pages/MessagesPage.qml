@@ -115,10 +115,8 @@ Page {
         Rectangle {
             property var portrait: parent.width <= parent.height
 
-            //width: parent.width / 2
             width: parent.width / 1.5
             height: portrait ? parent.width / 1.5 : parent.width / 3
-            //x: parent.width / 4
             x: parent.width / 6
             y: portrait ? (parent.height / 2) - (parent.width / 3) :
                           (parent.height / 2) - (parent.width / 6)

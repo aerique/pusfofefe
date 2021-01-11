@@ -72,20 +72,6 @@ Page {
 
             SectionHeader { text: "General" }
 
-            //TextField {
-            //    id: refreshTime
-            //    inputMethodHints: Qt.ImhDigitsOnly
-            //    width: parent.width
-            //    label: "minutes between Pushover checks"
-            //    // 1m < t < 1d
-            //    validator: IntValidator { bottom: 1; top: 1440 }
-            //    text: Lisp.call("cloverlover::get-pushover-refresh")
-
-            //    EnterKey.iconSource: "image://theme/icon-m-accept"
-            //    EnterKey.onClicked: Lisp.call(
-            //        "cloverlover::set-pushover-refresh", refreshTime.text)
-            //}
-
             ComboBox {
                 id: combobox
                 width: parent.width

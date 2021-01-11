@@ -3,17 +3,19 @@ import Sailfish.Silica 1.0
 import EQL5 1.0
 
 CoverBackground {
-    // XXX this should become the app icon
     Label {
-        anchors.horizontalCenter: parent.horizontalCenter
-        textFormat: Text.RichText
-        text: "<br><b>Pusfofefe</b>"
+        x: Theme.paddingLarge
+        y: Theme.paddingLarge
+        color: Theme.highlightColor
+        text: "Pusfofefe"
     }
 
     Label {
         anchors.verticalCenter: parent.verticalCenter
         anchors.horizontalCenter: parent.horizontalCenter
+        color: Theme.highlightColor
         // FIXME this does not update when refresh / sync below is used
+        //       This has something to do with not updating the object?
         text: Lisp.call("cloverlover::pf-cover-message")
     }
 

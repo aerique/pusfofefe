@@ -100,12 +100,12 @@ And build again.
 
 ### Maybe
 
-- [ ] add buttons on MessagePage to go to next and previous message
+- [x] add buttons on MessagePage to go to next and previous message
+- [x] add support for landscape orientation
 - [ ] add support for entering session secrets and device UUIDs
 - [ ] switch from StringList model to an object
     - this will allow us to have more metadata on the message and to
       display it in different ways in the front-end
-- [ ] add support for landscape orientation
 - [ ] add Pushover [websocket](https://pushover.net/api/client#websocket)
       support
 
