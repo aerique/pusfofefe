@@ -3,8 +3,6 @@ import Sailfish.Silica 1.0
 import EQL5 1.0
 
 Page {
-    RemorsePopup { id: remorse }
-
     SilicaFlickable {
         anchors.fill: parent
         contentWidth: parent.width
@@ -35,25 +33,34 @@ Page {
 
             SectionHeader { text: "Pushover" }
 
-            TextField {
-                id: pushoverEmail
+            BackgroundItem {
                 width: parent.width
-                label: "E-mail Address"
-                placeholderText: "Enter E-mail Address"
-                text: Lisp.call("cloverlover::get-pushover-email")
+                height: pushoverEmail.height + pushoverPassword.height
 
-                readOnly: true
+                TextField {
+                    id: pushoverEmail
+                    width: parent.width
+                    placeholderText: label
+                    label: "E-mail Address"
+                    text: Lisp.call("cloverlover::get-pushover-email")
+                }
 
-                onClicked: pageStack.push(Qt.resolvedUrl("LoginDialog.qml"))
-            }
+                PasswordField {
+                    // Since we're a child of BackgroundItem and not Column
+                    // we need to use an anchor again.
+                    anchors.top: pushoverEmail.bottom
+                    id: pushoverPassword
+                    text: Lisp.call("cloverlover::get-pushover-password")
+                }
 
-            PasswordField {
-                id: pushoverPassword
-                text: Lisp.call("cloverlover::get-pushover-password")
+                //TouchBlocker { anchors.fill: parent }
+                BackgroundItem {
+                    anchors.fill: parent
+                    onClicked: pageStack.push(
+                        Qt.resolvedUrl("LoginDialog.qml"))
+                }
 
-                readOnly: true
-
-                onClicked: pageStack.push(Qt.resolvedUrl("LoginDialog.qml"))
+                //onClicked: pageStack.push(Qt.resolvedUrl("LoginDialog.qml"))
             }
 
             Label {
@@ -87,16 +94,6 @@ Page {
                     onClicked: console.log(">>> " + combobox.value)
                 }
             }
-
-            //Slider {
-            //    width: parent.width
-            //    minimumValue: 1
-            //    maximumValue: 240
-            //    value: 10
-            //    valueText: value
-            //    label: "minutes between Pushover checks"
-            //    stepSize: 1
-            //}
         }
     }
 }

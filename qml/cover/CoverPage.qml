@@ -10,14 +10,14 @@ CoverBackground {
         text: "Pusfofefe"
     }
 
-    Label {
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        color: Theme.highlightColor
-        // FIXME this does not update when refresh / sync below is used
-        //       This has something to do with not updating the object?
-        text: Lisp.call("cloverlover::pf-cover-message")
-    }
+    //Label {
+    //    anchors.verticalCenter: parent.verticalCenter
+    //    anchors.horizontalCenter: parent.horizontalCenter
+    //    color: Theme.highlightColor
+    //    // FIXME this does not update when refresh / sync below is used
+    //    //       This has something to do with not updating the object?
+    //    text: Lisp.call("cloverlover::pf-cover-message")
+    //}
 
     CoverActionList {
         CoverAction {

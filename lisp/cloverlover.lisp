@@ -217,11 +217,22 @@
 
 (defun pf-feedback (message)
   (let ((msg ; Some Pushover API messages aren't really useful for app users.
-             (cond ;; *pushover-secret* is empty.
+             (cond ;; XXX This seems to be an error in Pushover's API: it
+                   ;;     returns `(:NAME ("has already been taken"))` when
+                   ;;     a device has already been registered.
+                   ;;     I still need to double-check with Curl whether the
+                   ;;     problem is really Pushover.
+                   ((eq message :name)
+                    (mkstr "<br>Device already registered. Login to the "
+                           "Pushover website and remove it."))
+                   ;; invalid credentials
+                   ((starts-with message "invalid email and/or password")
+                    "<br>E-mail or password incorrect.")
+                   ;; *pushover-secret* is empty
                    ((starts-with message "secret must be supplied; did you ")
-                    "You need to login to Pushover first. (NO_SECRET)")
-                   ;; Pass the original message through.
-                   (t message))))
+                    "<br>Login to Pushover first.")
+                   ;; pass the original message
+                   (t (mkstr "<br>" message)))))
     (qml:qml-set "feedbackLabel" "text" msg))
   (qml:qml-set "feedback" "visible" t))
 
@@ -280,18 +291,15 @@
         (response (login email password)))
     (if (= 0 (getf response :status))
         (progn (format t "Could not login: ~S~%" response)
-               (pf-feedback (format nil "Could not login: ~S~%" response)))
+               (pf-feedback (first (getf response :errors)))
+               (return-from pf-login-and-register))
         (progn (format t "Received secret <<~S>>.~%" (getf response :secret))
                (setf *pushover-secret* (getf response :secret))))
     (format t "Registering device...~%")
     (setf response (register-new-device *pushover-secret* *app-name*))
     (if (= 0 (getf response :status))
         (progn (format t "Could not register device: ~S~%" response)
-               (qml:qml-set "notification" "previewBody"
-                            (first (getf response :errors)))
-               (qml:qml-set "notification" "body"
-                            (first (getf response :errors)))
-               (qml:qml-call "notification" "publish"))
+               (pf-feedback (first (getf response :errors))))
         (progn (format t "Device registered <<~S>>.~%" (getf response :id))
                (setf *pushover-device-id* (getf response :id))
                (write-config)))))

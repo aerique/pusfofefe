@@ -31,39 +31,6 @@ Dialog {
         }
     }
 
-    BackgroundItem {
-        id: feedback
-        objectName: "feedback"
-        anchors.fill: parent
-        visible: false
-
-        Rectangle {
-            property var portrait: parent.width <= parent.height
-
-            width: parent.width / 2
-            height: portrait ? parent.width / 2 : parent.width / 3
-            x: parent.width / 4
-            y: portrait ? (parent.height / 2) - (parent.width / 4) :
-                          (parent.height / 3) - (parent.width / 6)
-            radius: portrait ? parent.width / 16 : parent.height / 16
-
-            color: Theme.overlayBackgroundColor
-            opacity: Theme.opacityOverlay
-
-            Label {
-                id: feedbackLabel
-                objectName: "feedbackLabel"
-                anchors.fill: parent
-                anchors.margins: Theme.paddingLarge
-                color: Theme.secondaryHighlightColor
-                wrapMode: Text.WordWrap
-                text: ""
-            }
-        }
-
-        onClicked: visible = false
-    }
-
     canAccept: (pushoverEmail.text != "") && (pushoverPassword.text != "")
 
     onAccepted: {

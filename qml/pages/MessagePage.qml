@@ -6,8 +6,6 @@ Page {
     property int messageIndex: -1
     property int messageCount: -1
 
-    RemorsePopup { id: remorse }
-
     SilicaFlickable {
         anchors.fill: parent
         contentWidth: parent.width
