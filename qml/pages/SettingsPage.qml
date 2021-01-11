@@ -64,7 +64,7 @@ Page {
             }
 
             Label {
-                width: parent.width
+                width: parent.width - 2 * Theme.horizontalPageMargin
                 x: Theme.horizontalPageMargin
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.highlightColor

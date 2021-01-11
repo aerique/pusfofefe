@@ -29,6 +29,15 @@ Dialog {
             EnterKey.iconSource: "image://theme/icon-m-accept"
             EnterKey.onClicked: accept()
         }
+
+        Label {
+            width: parent.width - 2 * Theme.horizontalPageMargin
+            x: Theme.horizontalPageMargin
+            font.pixelSize: Theme.fontSizeSmall
+            color: Theme.highlightColor
+            wrapMode: Text.WordWrap
+            text: "<br>Please enter your Pushover credentials."
+        }
     }
 
     canAccept: (pushoverEmail.text != "") && (pushoverPassword.text != "")
