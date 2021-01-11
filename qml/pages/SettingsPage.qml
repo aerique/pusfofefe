@@ -83,7 +83,8 @@ Page {
                 id: combobox
                 width: parent.width
                 description: "between Pushover checks"
-                currentIndex: Lisp.call("cloverlover::get-pushover-refresh")
+                currentIndex: Lisp.call(
+                    "cloverlover::get-pushover-refresh-for-combobox")
                 menu: ContextMenu {
                     MenuItem { text: "1 minute" }
                     MenuItem { text: "5 minutes" }

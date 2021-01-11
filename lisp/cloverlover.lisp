@@ -14,7 +14,7 @@
 (defparameter *pushover-password*  "")
 (defparameter *pushover-secret*    "")
 (defparameter *pushover-device-id* "")
-(defparameter *pushover-refresh*   10)
+(defparameter *pushover-refresh*   10)  ; seconds
 
 (defparameter *pushover-response* nil)
 (defparameter *pushover-messages* '())
@@ -74,10 +74,6 @@
     (eql:|setContextProperty| (qml:root-context) "messagesModel" data)))
 
 
-(defun notification-test ()
-  (qml:qml-call "notification" "publish"))
-
-
 ;;; Getters
 ;;;
 ;;; As much as I hate them (it's a bit of a smell that something hasn't been
@@ -135,7 +131,10 @@
 
 
 (defun get-pushover-refresh ()
-  ;; This is a bit too much tied to the GUI for my liking.
+  *pushover-refresh*)
+
+;; XXX temporary hack (2021-01-12)
+(defun get-pushover-refresh-for-combobox ()
   (case *pushover-refresh*
     (   60 0)
     (  300 1)
@@ -264,8 +263,16 @@
   (qml:qml-set "feedback" "visible" t))
 
 
+(defun pf-notify (summary &optional (body ""))
+  (qml:qml-set "notification" "previewBody" body)
+  (qml:qml-set "notification" "body"        body)
+  (qml:qml-set "notification" "previewSummary" summary)
+  (qml:qml-set "notification" "summary"        summary)
+  (qml:qml-call "notification" "publish"))
+
+
 (defun pf-cover-message ()
-  (format nil "~D messages" (length *pushover-messages-internal*)))
+  (mkstr (length *pushover-messages-internal*) " messages"))
 
 
 (defun pf-clear-messages ()
@@ -282,7 +289,7 @@
   (set-messages-model))
 
 
-(defun pf-download-messages ()
+(defun pf-download-messages (&optional called-from-timer)
   ;(qml:qml-set "busy_label" "text" "Retrieving new messages")
   ;(qml:qml-set "busy_label" "running" t)
   (let ((response (download-messages *pushover-secret* *pushover-device-id*)))
@@ -299,6 +306,14 @@
                                      collect msg)))
                (write-messages)
                (set-messages-model)
+               (when (and called-from-timer
+                          (> (length (getf response :messages)) 0))
+                 (pf-notify (mkstr (length (getf response :messages))
+                                   " new messages")))
+                 ;; Does not work for some reason.
+                 ;(qml:qml-set "coverMessage" "text"
+                 ;             (mkstr (length (getf response :messages))
+                 ;                    " new messages")))
                (if (> (length (getf response :messages)) 0)
                    (progn (delete-messages *pushover-secret*
                                *pushover-device-id*
