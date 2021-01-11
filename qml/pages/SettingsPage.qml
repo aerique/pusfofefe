@@ -39,7 +39,7 @@ Page {
                 id: pushoverEmail
                 width: parent.width
                 label: "E-mail Address"
-                placeholderText: label
+                placeholderText: "Enter E-mail Address"
                 text: Lisp.call("cloverlover::get-pushover-email")
 
                 readOnly: true

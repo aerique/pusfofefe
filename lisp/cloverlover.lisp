@@ -23,6 +23,12 @@
 
 ;;; Move to cloverlover project
 ;;; BEGIN
+(defun starts-with (sequence subsequence)
+  (let ((sublen (length subsequence)))
+    (when (and (> sublen 0)
+               (<= sublen (length sequence)))
+      (equal (subseq sequence 0 sublen) subsequence))))
+
 
 ;; https://en.wikipedia.org/wiki/Unix_time
 (defvar +unix-epoch-as-universal-time+
@@ -209,6 +215,17 @@
 ;;;
 ;;; These are called from QML.
 
+(defun pf-feedback (message)
+  (let ((msg ; Some Pushover API messages aren't really useful for app users.
+             (cond ;; *pushover-secret* is empty.
+                   ((starts-with message "secret must be supplied; did you ")
+                    "You need to login to Pushover first. (NO_SECRET)")
+                   ;; Pass the original message through.
+                   (t message))))
+    (qml:qml-set "feedbackLabel" "text" msg))
+  (qml:qml-set "feedback" "visible" t))
+
+
 (defun pf-cover-message ()
   (format nil "~D messages" (length *pushover-messages-internal*)))
 
@@ -233,11 +250,7 @@
   (let ((response (download-messages *pushover-secret* *pushover-device-id*)))
     (if (= 0 (getf response :status))
         (progn (format t "Could not download messages: ~S~%" response)
-               (qml:qml-set "notification" "previewBody"
-                            (first (getf response :errors)))
-               (qml:qml-set "notification" "body"
-                            (first (getf response :errors)))
-               (qml:qml-call "notification" "publish"))
+               (pf-feedback (first (getf response :errors))))
         (progn (format t "~D message(s) downloaded.~%"
                        (length (getf response :messages)))
                (setf *pushover-response* response
@@ -267,11 +280,7 @@
         (response (login email password)))
     (if (= 0 (getf response :status))
         (progn (format t "Could not login: ~S~%" response)
-               (qml:qml-set "notification" "previewBody"
-                            (first (getf response :errors)))
-               (qml:qml-set "notification" "body"
-                            (first (getf response :errors)))
-               (qml:qml-call "notification" "publish"))
+               (pf-feedback (format nil "Could not login: ~S~%" response)))
         (progn (format t "Received secret <<~S>>.~%" (getf response :secret))
                (setf *pushover-secret* (getf response :secret))))
     (format t "Registering device...~%")

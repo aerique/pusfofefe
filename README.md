@@ -79,6 +79,7 @@ And build again.
     - should be YYYY-MM-DD HH:MM:SS (ISO'ish) and UTC
 - [ ] have dropdown list for `*pushover-refresh*`
     - this has only been done for the frontend
+- [ ] actually get messages every `*pushover-refresh*`
 - [ ] expand descriptions for ECL and EQL in About page
 - [ ] show error page on login failure
 - [ ] make sure ASDF doesn't load on app start
