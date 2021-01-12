@@ -26,7 +26,9 @@ CoverBackground {
         Timer {
             // `*pushover-refresh*` is in seconds
             interval: 1000 * Lisp.call("cloverlover::get-pushover-refresh")
-            running: cover.status == Cover.Active
+            // This doesn't not work as expected.
+            //running: cover.status == Cover.Active
+            running: true
             repeat: true
             onTriggered: function() {
                 Lisp.call("cloverlover::pf-download-messages", true)
