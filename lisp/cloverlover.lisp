@@ -180,7 +180,7 @@
 
 (defun path-to-messages-file ()
   (let* ((dir (directory-namestring (eql:|writableLocation.QStandardPaths|
-                                     eql:|QStandardPaths.AppConfigLocation|)))
+                                     eql:|QStandardPaths.AppDataLocation|)))
          (path (mkstr dir "messages.lisp")))
     (ensure-directories-exist path)
     path))
