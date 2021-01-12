@@ -17,17 +17,6 @@ not monitored for support.)
 
 (See below in "Build".)
 
-## Usage
-
-**TBD**
-
-### Troubleshooting
-
-If your device has already been registered the login will fail.  Delete
-the device on the Pushover website.
-
-I realize this workflow is awkward.
-
 ## Build
 
 The project was build using
@@ -82,19 +71,11 @@ And build again.
 - [x] actually get messages every `*pushover-refresh*`
 - [x] make sure ASDF doesn't load on app start
 - [x] include all Quicklisp packages with app
+- [x] expand descriptions for ECL and EQL in About page
 - [ ] check format and timezone of time on MessagePage
     - should be YYYY-MM-DD HH:MM:SS (ISO'ish) and UTC
-- [ ] expand descriptions for ECL and EQL in About page
 - [ ] show progress when logging in and retrieving messages
     - this seems a little harder than expected
-- [ ] figure out why ECL/EQL won't build from `mb2` step below
-- [ ] try again to make deploy workflow one command
-    - `sb2 -t SailfishOS-latest-armv7hl -m sdk-build -R`
-        - `qmake`
-        - `make`
-    - `mb2 -t SailfishOS-latest-armv7hl build`
-    - `scp projects/pusfofefe/RPMS/pusfofefe-0.2-1.armv7hl.rpm nemo@192.168.2.15:`
-    - `pkcon -y install-local pusfofefe-0.2-1.armv7hl.rpm`
 - [ ] add support for two-factor auth
 - [ ] add support searching messages
 - [ ] add support showing only messages of a certain type
@@ -103,6 +84,14 @@ And build again.
 
 - [x] add buttons on MessagePage to go to next and previous message
 - [x] add support for landscape orientation
+- [ ] figure out why ECL/EQL won't build from `mb2` step below
+- [ ] try again to make deploy workflow one command
+    - `sb2 -t SailfishOS-latest-armv7hl -m sdk-build -R`
+        - `qmake`
+        - `make`
+    - `mb2 -t SailfishOS-latest-armv7hl build`
+    - `scp projects/pusfofefe/RPMS/pusfofefe-0.2-1.armv7hl.rpm nemo@192.168.2.15:`
+    - `pkcon -y install-local pusfofefe-0.2-1.armv7hl.rpm`
 - [ ] switch from StringList model to an object
     - this will allow us to have more metadata on the message and to
       display it in different ways in the front-end
