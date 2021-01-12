@@ -75,15 +75,15 @@ And build again.
 - [x] proper dialog for logging in
 - [x] save messages to a different file than config
 - [x] fix display of messages (or just truncate to one line)
+- [x] show error page on login failure
+- [x] have dropdown list for `*pushover-refresh*`
+    - this has only been done for the frontend
+- [x] actually get messages every `*pushover-refresh*`
+- [x] make sure ASDF doesn't load on app start
+- [x] include all Quicklisp packages with app
 - [ ] check format and timezone of time on MessagePage
     - should be YYYY-MM-DD HH:MM:SS (ISO'ish) and UTC
-- [ ] have dropdown list for `*pushover-refresh*`
-    - this has only been done for the frontend
-- [ ] actually get messages every `*pushover-refresh*`
 - [ ] expand descriptions for ECL and EQL in About page
-- [ ] show error page on login failure
-- [ ] make sure ASDF doesn't load on app start
-- [ ] include all Quicklisp packages with app
 - [ ] figure out why ECL/EQL won't build from `mb2` step below
 - [ ] try again to make deploy workflow one command
     - `sb2 -t SailfishOS-latest-armv7hl -m sdk-build -R`

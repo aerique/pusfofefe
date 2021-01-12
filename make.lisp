@@ -13,7 +13,8 @@
 (asdf:make-build "app"
                  :monolithic t
                  :type :static-library
-                 :prologue-code '(require :ecl-quicklisp)
+                 :prologue-code '(progn (require :sb-bsd-sockets)
+                                        (require :asdf))
                  :move-here "./"
                  :init-name "init_lib_APP__ALL_SYSTEMS")
 
