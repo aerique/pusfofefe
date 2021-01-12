@@ -18,7 +18,7 @@ Page {
                 text: "Reset Settings"
                 onClicked: remorse.execute(
                     "Resetting all settings to default",
-                    function() { console.log("Reset all settings.") })
+                    function() { Lisp.call("cloverlover::pf-reset-settings") })
             }
         }
 
@@ -39,6 +39,7 @@ Page {
 
                 TextField {
                     id: pushoverEmail
+                    objectName: "pushoverEmail"
                     width: parent.width
                     placeholderText: label
                     label: "E-mail Address"
@@ -46,10 +47,11 @@ Page {
                 }
 
                 PasswordField {
+                    id: pushoverPassword
+                    objectName: "pushoverPassword"
                     // Since we're a child of BackgroundItem and not Column
                     // we need to use an anchor again.
                     anchors.top: pushoverEmail.bottom
-                    id: pushoverPassword
                     text: Lisp.call("cloverlover::get-pushover-password")
                 }
 
@@ -80,7 +82,8 @@ Page {
             SectionHeader { text: "General" }
 
             ComboBox {
-                id: combobox
+                id: pushoverRefresh
+                objectName: "pushoverRefresh"
                 width: parent.width
                 description: "between Pushover checks"
                 currentIndex: Lisp.call(
@@ -93,7 +96,7 @@ Page {
                     MenuItem { text: "4 hours" }
                     //MenuItem { text: "1 day" }
                     onClicked: Lisp.call("cloverlover::set-pushover-refresh",
-                                         combobox.value)
+                                         pushoverRefresh.value)
                 }
             }
         }

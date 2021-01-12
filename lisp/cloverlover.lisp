@@ -8,13 +8,13 @@
 ;;; Globals
 
 (setf *app-name*    "Pusfofefe")
-(setf *app-version* "0.3")
+(setf *app-version* "0.4")
 
-(defparameter *pushover-email*     "")
-(defparameter *pushover-password*  "")
-(defparameter *pushover-secret*    "")
-(defparameter *pushover-device-id* "")
-(defparameter *pushover-refresh*   10)  ; seconds
+(defparameter *pushover-email*      "")
+(defparameter *pushover-password*   "")
+(defparameter *pushover-secret*     "")
+(defparameter *pushover-device-id*  "")
+(defparameter *pushover-refresh*   600)  ; seconds
 
 (defparameter *pushover-response* nil)
 (defparameter *pushover-messages* '())
@@ -271,14 +271,27 @@
   (qml:qml-call "notification" "publish"))
 
 
-(defun pf-cover-message ()
-  (mkstr (length *pushover-messages-internal*) " messages"))
-
-
 (defun pf-clear-messages ()
   (setf *pushover-messages-internal* '())
   (write-messages)
   (set-messages-model))
+
+
+(defun pf-reset-settings ()
+  (setf *pushover-email*      ""
+        *pushover-password*   ""
+        *pushover-secret*     ""
+        *pushover-device-id*  ""
+        *pushover-refresh*   600)
+  (qml:qml-set "pushoverEmail"    "text" "")
+  (qml:qml-set "pushoverPassword" "text" "")
+  (qml:qml-set "pushoverRefresh"  "currentIndex"
+               (get-pushover-refresh-for-combobox))
+  (write-config))
+
+
+(defun pf-cover-message ()
+  (mkstr (length *pushover-messages-internal*) " messages"))
 
 
 (defun pf-delete-message (index)
@@ -328,6 +341,8 @@
 (defun pf-login-and-register (email password)
   (setf *pushover-email*    email
         *pushover-password* password)
+  (qml:qml-set "pushoverEmail"    "text" email)
+  (qml:qml-set "pushoverPassword" "text" password)
   (format t "Logging in with <<~S>> <<~S>>...~%" email password)
   (let ((*print-pretty* nil)
         (response (login email password)))
