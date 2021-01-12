@@ -68,6 +68,7 @@ ApplicationWindow
 
     Notification {
         objectName: "notification"  // so it can be called from Lisp
+        appName: "Pusfofefe"
         summary: "Notification summary stub"
         previewSummary: "Notification previewSummary stub"
         body: "Notification body stub"

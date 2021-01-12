@@ -1,4 +1,5 @@
 RPMS/*
+tmp/*
 rpm/pusfofefe.spec
 Makefile
 documentation.list
