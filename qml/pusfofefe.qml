@@ -15,7 +15,6 @@ ApplicationWindow
     BusyLabel {
         id: busy_label
         objectName: "busy_label"
-
         text: "BusyLabel text stub"
         running: false
     }
@@ -29,6 +28,7 @@ ApplicationWindow
         Rectangle {
             property var portrait: parent.width <= parent.height
 
+            // FIXME read up on Screen.width!: https://sailfishos.org/develop/docs/silica/qml-sailfishsilica-sailfish-silica-screen.html/
             width: parent.width / 1.5
             height: portrait ? parent.width / 1.5 : parent.width / 3
             x: parent.width / 6

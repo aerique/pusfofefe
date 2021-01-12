@@ -302,9 +302,7 @@
   (set-messages-model))
 
 
-(defun pf-download-messages (&optional called-from-timer)
-  ;(qml:qml-set "busy_label" "text" "Retrieving new messages")
-  ;(qml:qml-set "busy_label" "running" t)
+(defun download-messages-thread (&optional called-from-timer)
   (let ((response (download-messages *pushover-secret* *pushover-device-id*)))
     (if (= 0 (getf response :status))
         (progn (format t "Could not download messages: ~S~%" response)
@@ -334,11 +332,20 @@
                           (format t "Messages up to ~D deleted from server.~%"
                                (highest-message *pushover-messages-internal*)))
                    (format t "No new messages retrieved, nothing to delete ~
-                              from server.~%"))))))
-  ;(qml:qml-set "busy_label" "running" nil))
+                              from server.~%")))))
+  (qml:qml-set "busy_label" "running" nil))
+
+(defun pf-download-messages (&optional called-from-timer)
+  (qml:qml-set "busy_label" "text" "Retrieving new messages")
+  (qml:qml-set "busy_label" "running" t)
+  ;; Fire off a thread so we don't block the GUI.  We use ECL thread code and
+  ;; not a portable thread library since EQL5 is ECL-only anyway.  Startup time
+  ;; is getting long enough as it is already.
+  (mp:process-run-function "download messages" #'download-messages-thread
+                           called-from-timer))
 
 
-(defun pf-login-and-register (email password)
+(defun login-and-register-thread (email password)
   (setf *pushover-email*    email
         *pushover-password* password)
   (qml:qml-set "pushoverEmail"    "text" email)
@@ -349,7 +356,8 @@
     (if (= 0 (getf response :status))
         (progn (format t "Could not login: ~S~%" response)
                (pf-feedback (first (getf response :errors)))
-               (return-from pf-login-and-register))
+               (qml:qml-set "busy_label" "running" nil)
+               (return-from login-and-register-thread))
         (progn (format t "Received secret <<~S>>.~%" (getf response :secret))
                (setf *pushover-secret* (getf response :secret))))
     (format t "Registering device...~%")
@@ -359,4 +367,12 @@
                (pf-feedback (first (getf response :errors))))
         (progn (format t "Device registered <<~S>>.~%" (getf response :id))
                (setf *pushover-device-id* (getf response :id))
-               (write-config)))))
+               (write-config))))
+  (qml:qml-set "busy_label" "running" nil))
+
+(defun pf-login-and-register (email password)
+  (qml:qml-set "busy_label" "text" "Logging in to Pushover")
+  (qml:qml-set "busy_label" "running" t)
+  ;; Fire off a thread so we don't block the GUI.
+  (mp:process-run-function "login and register" #'login-and-register-thread
+                           email password))

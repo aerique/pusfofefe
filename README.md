@@ -72,10 +72,11 @@ And build again.
 - [x] make sure ASDF doesn't load on app start
 - [x] include all Quicklisp packages with app
 - [x] expand descriptions for ECL and EQL in About page
+- [x] show progress when logging in and retrieving messages
+    - this seems a little harder than expected
+    - ok, done, the trick was to create the thread in ECL
 - [ ] check format and timezone of time on MessagePage
     - should be YYYY-MM-DD HH:MM:SS (ISO'ish) and UTC
-- [ ] show progress when logging in and retrieving messages
-    - this seems a little harder than expected
 - [ ] add support for two-factor auth
 - [ ] add support searching messages
 - [ ] add support showing only messages of a certain type

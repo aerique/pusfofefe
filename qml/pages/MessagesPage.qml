@@ -74,17 +74,7 @@ Page {
 
             MenuItem {
                 text: "Refresh"
-                // So this doesn't really work, since the UI seems to be
-                // blocked by this function.  (Same if I set the busyLabel
-                // from Lisp.)
-                // Also tried a WorkerScript but then ECL goes mental with
-                // `ecl_import_current_thread`.
-                onClicked: function() {
-                    busy_label.text = "Retrieving new messages"
-                    busy_label.running = true
-                    Lisp.call("cloverlover::pf-download-messages")
-                    busy_label.running = false
-                }
+                onClicked: Lisp.call("cloverlover::pf-download-messages")
             }
         }
 
