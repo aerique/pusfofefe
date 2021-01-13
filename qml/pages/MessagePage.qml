@@ -32,17 +32,15 @@ Page {
             spacing: Theme.paddingLarge
             width: parent.width
 
-            // Shows the message index for Pusfofefe and has nothing to do
-            // with Pushover.  Mainly for development for checking things.
-            // Could be removed.
-            //PageHeader { title: "Message (" + messageIndex + ", " + messageCount + ")" }
-            PageHeader { title: "Message" }
-
-            DetailItem {
-                width: parent.width
-                label: "App"
-                value: Lisp.call("cloverlover::get-message-app", messageIndex)
+            PageHeader {
+                title: Lisp.call("cloverlover::get-message-app", messageIndex)
             }
+
+            //DetailItem {
+            //    width: parent.width
+            //    label: "App"
+            //    value: Lisp.call("cloverlover::get-message-app", messageIndex)
+            //}
 
             DetailItem {
                 width: parent.width
