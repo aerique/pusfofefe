@@ -55,6 +55,8 @@ Page {
                     onClicked: listEntry.remorseAction("Deleting message",
                         function() {
                             Lisp.call("cloverlover::pf-delete-message", index)
+                            coverMsg =
+                                Lisp.call("cloverlover::pf-cover-message")
                         })
                 }
             }
@@ -74,7 +76,10 @@ Page {
 
             MenuItem {
                 text: "Refresh"
-                onClicked: Lisp.call("cloverlover::pf-download-messages")
+                onClicked: function() {
+                    Lisp.call("cloverlover::pf-download-messages")
+                    setMessagesModelTimer.running = true
+                }
             }
         }
 

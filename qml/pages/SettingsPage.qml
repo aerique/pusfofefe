@@ -95,8 +95,12 @@ Page {
                     MenuItem { text: "1 hour" }
                     MenuItem { text: "4 hours" }
                     //MenuItem { text: "1 day" }
-                    onClicked: Lisp.call("cloverlover::set-pushover-refresh",
-                                         pushoverRefresh.value)
+                    onClicked: function() {
+                        Lisp.call("cloverlover::set-pushover-refresh",
+                                  pushoverRefresh.value)
+                        pushoverRefreshTimer.interval = 1000 *
+                            Lisp.call("cloverlover::get-pushover-refresh")
+                    }
                 }
             }
         }

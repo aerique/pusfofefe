@@ -74,6 +74,15 @@
     (eql:|setContextProperty| (qml:root-context) "messagesModel" data)))
 
 
+;; Hack, see `pusfofefe.qml` `setMessagesModelTimer`.
+(defparameter *update-model-p* nil)
+
+(defun update-model-p ()
+  (when *update-model-p*
+    (setf *update-model-p* nil)
+    t))
+
+
 ;;; Getters
 ;;;
 ;;; As much as I hate them (it's a bit of a smell that something hasn't been
@@ -316,7 +325,10 @@
                                    when (not (find-message (getf msg :id)))
                                      collect msg)))
                (write-messages)
-               (set-messages-model)
+               ;; This doesn't not work from a thread ...
+               ;(set-messages-model)
+               ;; so we do this.  (see `pusfofefe.qml` `setMessagesModelTimer`)
+               (setf *update-model-p* t)
                (when (and called-from-timer
                           (> (length (getf response :messages)) 0))
                  (pf-notify (mkstr (length (getf response :messages))
@@ -331,8 +343,8 @@
                                (highest-message *pushover-messages-internal*))
                           (format t "Messages up to ~D deleted from server.~%"
                                (highest-message *pushover-messages-internal*)))
-                   (format t "No new messages retrieved, nothing to delete ~
-                              from server.~%")))))
+                   #|(format t "No new messages retrieved, nothing to delete ~
+                              from server.~%")|#))))
   (qml:qml-set "busy_label" "running" nil))
 
 (defun pf-download-messages (&optional called-from-timer)

@@ -21,26 +21,16 @@ CoverBackground {
         anchors.verticalCenter: parent.verticalCenter
 
         color: Theme.highlightColor
-        text: ""
-
-        Timer {
-            // `*pushover-refresh*` is in seconds
-            interval: 1000 * Lisp.call("cloverlover::get-pushover-refresh")
-            // This doesn't not work as expected.
-            //running: cover.status == Cover.Active
-            running: true
-            repeat: true
-            onTriggered: function() {
-                Lisp.call("cloverlover::pf-download-messages", true)
-                coverMessage.text = Lisp.call("cloverlover::pf-cover-message")
-            }
-        }
+        text: coverMsg
     }
 
     CoverActionList {
         CoverAction {
             iconSource: "image://theme/icon-cover-sync"
-            onTriggered: Lisp.call("cloverlover::pf-download-messages")
+            onTriggered: function() {
+                Lisp.call("cloverlover::pf-download-messages")
+                setMessagesModelTimer.running = true
+            }
         }
     }
 }

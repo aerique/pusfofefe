@@ -1,11 +1,14 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import Nemo.Notifications 1.0
+import EQL5 1.0
 
 import "pages/" as Pages
 
 ApplicationWindow
 {
+    property var coverMsg: Lisp.call("cloverlover::pf-cover-message")
+
     initialPage: Component { Pages.MessagesPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
@@ -73,5 +76,36 @@ ApplicationWindow
         previewSummary: "Notification previewSummary stub"
         body: "Notification body stub"
         previewBody: "Notification previewBody stub"
+    }
+
+    Timer {
+        id: pushoverRefreshTimer
+        // `*pushover-refresh*` is in seconds
+        interval: 1000 * Lisp.call("cloverlover::get-pushover-refresh")
+        // This doesn't not work as expected.
+        //running: cover.status == Cover.Active
+        running: true
+        repeat: true
+        onTriggered: function() {
+            Lisp.call("cloverlover::pf-download-messages", true)
+            setMessagesModelTimer.running = true
+        }
+    }
+
+    // XXX This hack exists because in the `cloverlover.lisp` function
+    //     `download-messages-thread` we cannot update the messagesModel.
+    //     Better solutions are appreciated.
+    Timer {
+        id: setMessagesModelTimer
+        interval: 1000
+        running: false
+        repeat: true
+        onTriggered: function() {
+            if (Lisp.call("cloverlover::update-model-p")) {
+                Lisp.call("cloverlover::set-messages-model")
+                coverMsg = Lisp.call("cloverlover::pf-cover-message")
+                setMessagesModelTimer.running = false
+            }
+        }
     }
 }
