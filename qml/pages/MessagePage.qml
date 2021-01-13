@@ -65,35 +65,39 @@ Page {
                 wrapMode: Text.WordWrap
                 text: Lisp.call("cloverlover::get-message-text", messageIndex)
             }
+        }
+    }
 
-            // Does not work for IconButton, FFS.
-            ButtonLayout {
-                Button {
-                //IconButton {
-                    text: "<"
-                    //icon.source: "image://theme/icon-m-back"
-                    onClicked: pageStack.replace(
-                        Qt.resolvedUrl("MessagePage.qml"),
-                        { messageIndex: messageIndex - 1,
-                          messageCount: messageCount })
-                    // More user-friendly would be to skip to the last
-                    // message.
-                    enabled: messageIndex > 0
-                }
+    // Does not work for IconButton, FFS.
+    ButtonLayout {
+        //width: parent.width - 2 * Theme.horizontalPageMargin
+        //x: Theme.horizontalPageMargin
+        y: parent.height - childrenRect.height - Theme.paddingLarge
 
-                Button {
-                //IconButton {
-                    text: ">"
-                    //icon.source: "image://theme/icon-m-forward"
-                    onClicked: pageStack.replace(
-                        Qt.resolvedUrl("MessagePage.qml"),
-                        { messageIndex: messageIndex + 1,
-                          messageCount: messageCount })
-                    // More user-friendly would be to skip to the first
-                    // message.
-                    enabled: messageIndex < (messageCount - 1)
-                }
-            }
+        Button {
+        //IconButton {
+            text: "<"
+            //icon.source: "image://theme/icon-m-back"
+            onClicked: pageStack.replace(
+                Qt.resolvedUrl("MessagePage.qml"),
+                { messageIndex: messageIndex - 1,
+                  messageCount: messageCount })
+            // More user-friendly would be to skip to the last
+            // message.
+            enabled: messageIndex > 0
+        }
+
+        Button {
+        //IconButton {
+            text: ">"
+            //icon.source: "image://theme/icon-m-forward"
+            onClicked: pageStack.replace(
+                Qt.resolvedUrl("MessagePage.qml"),
+                { messageIndex: messageIndex + 1,
+                  messageCount: messageCount })
+            // More user-friendly would be to skip to the first
+            // message.
+            enabled: messageIndex < (messageCount - 1)
         }
     }
 }
