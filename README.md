@@ -10,14 +10,30 @@ The canonical home page of this project is https://git.sr.ht/~aerique/pusfofefe
 (This project is also pushed to GitLab and GitHub but those sites are
 not monitored for support.)
 
-## Dependencies
+## Known Issues
+
+- Having two remorse actions running at the same time will result in
+  only one being executed (and an error on STDOUT when running from the
+  CLI).
+- When running from the CLI you'll see `[W] unknown:-1 - <Unknown File>:
+  Syntax error` when downloading messages or logging in.  It seems to be
+  connected to spawning threads in ECL and even happens when the
+  `download-messages-thread` or `login-and-register-thread` functions
+  are empty.  When these functions are not called the error does not
+  appear.  However, it does not seems to affect the running of those
+  functions.  I have not investigated further.
+- No Pushover websocket / "push" support.  So when there are new
+  messages one Pushover server it can take up to the refresh time
+  defined in settings before they're retrieved by the Pusfofefe app.
+
+## Build
+
+### Dependencies
 
 - [SailfishOS Builds in Docker](https://git.sr.ht/~aerique/sfosbid)
 - [Cloverlover](https://git.sr.ht/~aerique/cloverlover)
 
-(See below in "Build".)
-
-## Build
+### Instructions
 
 The project was build using
 [SailfishOS Builds in Docker](https://git.sr.ht/~aerique/sfosbid).
