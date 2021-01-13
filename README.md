@@ -75,8 +75,13 @@ And build again.
 - [x] show progress when logging in and retrieving messages
     - this seems a little harder than expected
     - ok, done, the trick was to create the thread in ECL
+- [ ] also show new messages on cover page
+- [ ] describe current downloading of messages wrt to threading,
+      reasons, all used functions and vars, etc.
 - [ ] check format and timezone of time on MessagePage
     - should be YYYY-MM-DD HH:MM:SS (ISO'ish) and UTC
+- [ ] take a good look a all globals in `pusfofefe.qml` and see if we
+      can do better
 - [ ] add support for two-factor auth
 - [ ] add support searching messages
 - [ ] add support showing only messages of a certain type
