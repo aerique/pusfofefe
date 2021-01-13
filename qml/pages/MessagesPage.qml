@@ -13,6 +13,8 @@ Page {
         delegate: ListItem {
             id: listEntry
 
+            //contentHeight: Theme.itemSizeMedium
+
             Label {
                 id: label
 
@@ -91,5 +93,10 @@ Page {
             text: "No messages"
             hintText: "Pull down to refresh"
         }
+    }
+
+    onActiveFocusChanged: {
+        Lisp.call("cloverlover::pf-reset-new-messages")
+        coverMsg = Lisp.call("cloverlover::pf-cover-message")
     }
 }

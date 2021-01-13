@@ -16,9 +16,10 @@
 (defparameter *pushover-device-id*  "")
 (defparameter *pushover-refresh*   600)  ; seconds
 
-(defparameter *pushover-response* nil)
-(defparameter *pushover-messages* '())
+(defparameter *pushover-response*          nil)
+(defparameter *pushover-messages*          '())
 (defparameter *pushover-messages-internal* '())
+(defparameter *pushover-new-messages*      0)
 
 
 ;;; Move to cloverlover project
@@ -286,6 +287,10 @@
   (set-messages-model))
 
 
+(defun pf-reset-new-messages ()
+  (setf *pushover-new-messages* 0))
+
+
 (defun pf-reset-settings ()
   (setf *pushover-email*      ""
         *pushover-password*   ""
@@ -300,7 +305,11 @@
 
 
 (defun pf-cover-message ()
-  (mkstr (length *pushover-messages-internal*) " messages"))
+  (mkstr (length *pushover-messages-internal*) " messages"
+         "<br>"
+         (if (> *pushover-new-messages* 0)
+             (mkstr *pushover-new-messages* " new messages")
+             "")))
 
 
 (defun pf-delete-message (index)
@@ -331,6 +340,8 @@
                (setf *update-model-p* t)
                (when (and called-from-timer
                           (> (length (getf response :messages)) 0))
+                 (incf *pushover-new-messages*
+                       (length (getf response :messages)))
                  (pf-notify (mkstr (length (getf response :messages))
                                    " new messages")))
                  ;; Does not work for some reason.
