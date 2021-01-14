@@ -305,7 +305,10 @@
 
 
 (defun pf-cover-messages ()
-  (mkstr (length *pushover-messages-internal*) " messages"))
+  (let ((len (length *pushover-messages-internal*)))
+    (mkstr len (if (= len 1)
+                   " message"
+                   " messages"))))
 
 
 (defun pf-cover-new-messages ()
