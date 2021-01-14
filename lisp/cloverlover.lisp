@@ -8,7 +8,7 @@
 ;;; Globals
 
 (setf *app-name*    "Pusfofefe")
-(setf *app-version* "0.4")
+(setf *app-version* "0.9")
 
 (defparameter *pushover-email*      "")
 (defparameter *pushover-password*   "")
