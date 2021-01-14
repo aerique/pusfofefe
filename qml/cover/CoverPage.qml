@@ -13,15 +13,21 @@ CoverBackground {
         text: "Pusfofefe"
     }
 
-    Label {
-        id: coverMessage
-        objectName: "coverMessage"
-
+    Column {
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
-        color: Theme.highlightColor
-        text: coverMsg
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: Theme.highlightColor
+            text: coverMessages
+        }
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: Theme.primaryColor
+            text: coverNewMessages
+        }
     }
 
     CoverActionList {

@@ -20,7 +20,10 @@ Page {
         //            function() {
         //                Lisp.call("cloverlover::pf-delete-message",
         //                          messageIndex)
-        //                coverMsg = Lisp.call("cloverlover::pf-cover-message")
+        //                coverMessages =
+        //                      Lisp.call("cloverlover::pf-cover-messages")
+        //                coverNewMessages =
+        //                      Lisp.call("cloverlover::pf-cover-new-messages")
         //            })
         //    }
         //}

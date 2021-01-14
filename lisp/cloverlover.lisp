@@ -304,12 +304,14 @@
   (write-config))
 
 
-(defun pf-cover-message ()
-  (mkstr (length *pushover-messages-internal*) " messages"
-         "<br>"
-         (if (> *pushover-new-messages* 0)
-             (mkstr *pushover-new-messages* " new messages")
-             "")))
+(defun pf-cover-messages ()
+  (mkstr (length *pushover-messages-internal*) " messages"))
+
+
+(defun pf-cover-new-messages ()
+ (if (> *pushover-new-messages* 0)
+     (mkstr *pushover-new-messages* " new")
+     ""))
 
 
 (defun pf-delete-message (index)

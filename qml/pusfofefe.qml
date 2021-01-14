@@ -7,7 +7,9 @@ import "pages/" as Pages
 
 ApplicationWindow
 {
-    property var coverMsg: Lisp.call("cloverlover::pf-cover-message")
+    property var coverMessages: Lisp.call("cloverlover::pf-cover-messages")
+    property var coverNewMessages: Lisp.call(
+                                          "cloverlover::pf-cover-new-messages")
 
     initialPage: Component { Pages.MessagesPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
@@ -103,7 +105,9 @@ ApplicationWindow
         onTriggered: function() {
             if (Lisp.call("cloverlover::update-model-p")) {
                 Lisp.call("cloverlover::set-messages-model")
-                coverMsg = Lisp.call("cloverlover::pf-cover-message")
+                coverMessages = Lisp.call("cloverlover::pf-cover-messages")
+                coverNewMessages =
+                                Lisp.call("cloverlover::pf-cover-new-messages")
                 setMessagesModelTimer.running = false
             }
         }

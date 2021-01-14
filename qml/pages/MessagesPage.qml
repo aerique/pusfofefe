@@ -57,8 +57,10 @@ Page {
                     onClicked: listEntry.remorseAction("Deleting message",
                         function() {
                             Lisp.call("cloverlover::pf-delete-message", index)
-                            coverMsg =
-                                Lisp.call("cloverlover::pf-cover-message")
+                            coverMessages =
+                                Lisp.call("cloverlover::pf-cover-messages")
+                            coverNewMessages =
+                                Lisp.call("cloverlover::pf-cover-new-messages")
                         })
                 }
             }
@@ -97,6 +99,7 @@ Page {
 
     onActiveFocusChanged: {
         Lisp.call("cloverlover::pf-reset-new-messages")
-        coverMsg = Lisp.call("cloverlover::pf-cover-message")
+        coverMessages = Lisp.call("cloverlover::pf-cover-messages")
+        coverNewMessages = Lisp.call("cloverlover::pf-cover-new-messages")
     }
 }
