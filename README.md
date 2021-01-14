@@ -73,6 +73,16 @@ And build again.
 
 ## To Do
 
+### High Priority
+
+- [ ] describe current downloading of messages wrt to threading,
+      reasons, all used functions and vars, etc.
+- [ ] take a good look a all globals in `pusfofefe.qml` and see if we
+      can do better
+- [ ] clean up code
+
+### Normal Priority
+
 - [x] use proper primary and hint colors for text, links and input
 - [x] add link to https://pushover.net/signup
 - [x] use `/home/nemo/.config/pusfofefe/config.lisp` for config
@@ -92,18 +102,14 @@ And build again.
     - this seems a little harder than expected
     - ok, done, the trick was to create the thread in ECL
 - [x] also show new messages on cover page
-- [ ] describe current downloading of messages wrt to threading,
-      reasons, all used functions and vars, etc.
 - [ ] describe definition of "new" message
 - [ ] check format and timezone of time on MessagePage
     - should be YYYY-MM-DD HH:MM:SS (ISO'ish) and UTC
-- [ ] take a good look a all globals in `pusfofefe.qml` and see if we
-      can do better
 - [ ] add support for two-factor auth
 - [ ] add support searching messages
 - [ ] add support showing only messages of a certain type
 
-### Maybe
+### Low Priority
 
 - [x] add buttons on MessagePage to go to next and previous message
 - [x] add support for landscape orientation
