@@ -79,6 +79,7 @@ Page {
 
         Button {
         //IconButton {
+            color: Theme.highlightColor
             text: "<"
             //icon.source: "image://theme/icon-m-back"
             onClicked: pageStack.replace(
@@ -92,6 +93,7 @@ Page {
 
         Button {
         //IconButton {
+            color: Theme.highlightColor
             text: ">"
             //icon.source: "image://theme/icon-m-forward"
             onClicked: pageStack.replace(
