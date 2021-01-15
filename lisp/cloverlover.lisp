@@ -347,8 +347,10 @@
                           (> (length (getf response :messages)) 0))
                  (incf *pushover-new-messages*
                        (length (getf response :messages)))
-                 (pf-notify (mkstr (length (getf response :messages))
-                                   " new messages")))
+                 ;; Disabled, this is only useful when the app can be closed
+                 ;; AND messages can still be retrieved.
+                 #|(pf-notify (mkstr (length (getf response :messages))
+                                   " new messages"))|#)
                  ;; Does not work for some reason.
                  ;(qml:qml-set "coverMessage" "text"
                  ;             (mkstr (length (getf response :messages))
