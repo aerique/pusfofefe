@@ -33,8 +33,10 @@ SOURCES += src/pusfofefe.cc
 
 DISTFILES += qml/pusfofefe.qml \
     qml/cover/CoverPage.qml \
-    qml/pages/FirstPage.qml \
+    qml/pages/MessagesPage.qml \
+    qml/pages/MessagePage.qml \
     qml/pages/SettingsPage.qml \
+    qml/pages/LoginDialog.qml \
     qml/pages/AboutPage.qml \
     rpm/pusfofefe.changes.in \
     rpm/pusfofefe.changes.run.in \
