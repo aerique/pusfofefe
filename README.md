@@ -26,6 +26,17 @@ not monitored for support.)
   messages one Pushover server it can take up to the refresh time
   defined in settings before they're retrieved by the Pusfofefe app.
 
+## Backup
+
+There's two files if you need to backup your data, they're defined in
+the code by `QStandardPaths::AppConfigLocation` and
+`QStandardPaths::AppDataLocation` and on Linux usually point to:
+
+- `$HOME/.config/pusfofefe/`
+- `$HOME/.local/share/pusfofefe/`
+
+You can replace these files if the program is not running.
+
 ## Build
 
 ### Dependencies
