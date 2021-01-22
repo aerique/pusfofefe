@@ -155,6 +155,7 @@
 
 (defun set-pushover-refresh (refresh-time)
   ;; A bit blunt but I don't want to import CL-PPCRE.
+  ;; XXX update: CL-PPCRE is imported by Drakma anyway
   (let ((value (parse-integer (subseq refresh-time 0
                                       (position #\space refresh-time))))
         (multiplier (cond ((or (ends-with refresh-time "minute")
