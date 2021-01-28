@@ -9,7 +9,7 @@ CoverBackground {
         x: Theme.paddingLarge
         y: Theme.paddingLarge
         color: Theme.highlightColor
-        font.pixelSize: Theme.fontSizeExtraSmall
+        font.pixelSize: Theme.fontSizeSmall
         text: "Pusfofefe"
     }
 
