@@ -144,8 +144,9 @@
   *pushover-refresh*)
 
 ;; XXX temporary hack (2021-01-12)
+;; FIXME closely coupled to UI!
 (defun get-pushover-refresh-for-combobox ()
-  (case *pushover-refresh*
+  (case (get-pushover-refresh)
     (   60 0)
     (  300 1)
     (  600 2)
