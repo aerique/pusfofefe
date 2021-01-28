@@ -99,7 +99,7 @@ ApplicationWindow
     //     Better solutions are appreciated.
     Timer {
         id: setMessagesModelTimer
-        interval: 1000
+        interval: 500
         running: false
         repeat: true
         onTriggered: function() {
