@@ -17,11 +17,41 @@ ApplicationWindow
 
     RemorsePopup { id: remorse }
 
-    BusyLabel {
-        id: busy_label
-        objectName: "busy_label"
-        text: "BusyLabel text stub"
-        running: false
+    //BusyLabel {
+    //    id: busy_label
+    //    objectName: "busy_label"
+    //    text: "BusyLabel text stub"
+    //    running: false
+    //}
+
+    Rectangle {
+        id: busy_rect
+        objectName: "busy_rect"
+        anchors.fill: parent
+        anchors.margins: Theme.paddingLarge
+        visible: false
+
+        color: Theme.overlayBackgroundColor
+        opacity: Theme.opacityOverlay
+
+        BusyIndicator {
+            id: busy_indicator
+            objectName: "busy_indicator"
+            size: BusyIndicatorSize.Large
+            anchors.centerIn: parent
+            running: false
+        }
+
+        Label {
+            id: busy_text
+            objectName: "busy_label"
+            anchors {
+                top: busy_indicator.bottom
+                topMargin: Theme.paddingLarge
+                horizontalCenter: parent.horizontalCenter
+            }
+            text: "BusyLabel text stub"
+        }
     }
 
     BackgroundItem {

@@ -365,11 +365,13 @@
                                (highest-message *pushover-messages-internal*)))
                    #|(format t "No new messages retrieved, nothing to delete ~
                               from server.~%")|#))))
-  (qml:qml-set "busy_label" "running" nil))
+  (qml:qml-set "busy_indicator" "running" nil)
+  (qml:qml-set "busy_rect" "visible" nil))
 
 (defun pf-download-messages (&optional called-from-timer)
   (qml:qml-set "busy_label" "text" "Retrieving new messages")
-  (qml:qml-set "busy_label" "running" t)
+  (qml:qml-set "busy_indicator" "running" t)
+  (qml:qml-set "busy_rect" "visible" t)
   ;; Fire off a thread so we don't block the GUI.  We use ECL thread code and
   ;; not a portable thread library since EQL5 is ECL-only anyway.  Startup time
   ;; is getting long enough as it is already.
@@ -388,7 +390,8 @@
     (if (= 0 (getf response :status))
         (progn (format t "Could not login: ~S~%" response)
                (pf-feedback (first (getf response :errors)))
-               (qml:qml-set "busy_label" "running" nil)
+               (qml:qml-set "busy_indicator" "running" nil)
+               (qml:qml-set "busy_rect" "visible" nil)
                (return-from login-and-register-thread))
         (progn (format t "Received secret <<~S>>.~%" (getf response :secret))
                (setf *pushover-secret* (getf response :secret))))
@@ -400,11 +403,13 @@
         (progn (format t "Device registered <<~S>>.~%" (getf response :id))
                (setf *pushover-device-id* (getf response :id))
                (write-config))))
-  (qml:qml-set "busy_label" "running" nil))
+  (qml:qml-set "busy_indicator" "running" nil)
+  (qml:qml-set "busy_rect" "visible" nil))
 
 (defun pf-login-and-register (email password)
   (qml:qml-set "busy_label" "text" "Logging in to Pushover")
-  (qml:qml-set "busy_label" "running" t)
+  (qml:qml-set "busy_indicator" "running" t)
+  (qml:qml-set "busy_rect" "visible" t)
   ;; Fire off a thread so we don't block the GUI.
   (mp:process-run-function "login and register" #'login-and-register-thread
                            email password))
