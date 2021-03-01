@@ -20,10 +20,18 @@ ApplicationWindow
 
     // My BusyLabel
     Rectangle {
+        property var portrait: parent.width <= parent.height
+
         id: busy_rect
         objectName: "busy_rect"
-        anchors.fill: parent
-        anchors.margins: Theme.paddingLarge
+
+        width: parent.width / 1.5
+        height: portrait ? parent.width / 1.5 : parent.width / 3
+        x: parent.width / 6
+        y: portrait ? (parent.height / 2) - (parent.width / 3) :
+                      (parent.height / 2) - (parent.width / 6)
+        radius: portrait ? parent.width / 16 : parent.height / 16
+
         visible: false
 
         color: Theme.overlayBackgroundColor
@@ -58,7 +66,6 @@ ApplicationWindow
         Rectangle {
             property var portrait: parent.width <= parent.height
 
-            // FIXME read up on Screen.width!: https://sailfishos.org/develop/docs/silica/qml-sailfishsilica-sailfish-silica-screen.html/
             width: parent.width / 1.5
             height: portrait ? parent.width / 1.5 : parent.width / 3
             x: parent.width / 6
