@@ -109,7 +109,6 @@ ApplicationWindow
         id: pushoverRefreshTimer
         frequency: eval(Lisp.call(
             "cloverlover::get-pushover-refresh-for-bgjob"))
-        //frequency: BackgroundJob.ThirtySeconds
         enabled: true
         onTriggered: function() {
             Lisp.call("cloverlover::pf-download-messages", true)

@@ -141,17 +141,21 @@
 
 
 (defun get-pushover-refresh ()
+  ;; XXX Naive migration from old-form config (which was in seconds).  We
+  ;; XXX have so few people using the app: remove this in 2022.
+  (when (> *pushover-refresh* 4)
+    (setf *pushover-refresh* 2))
   *pushover-refresh*)
 
 ;; See SettingsPage.qml:pushoverRefresh
 (defun get-pushover-refresh-for-bgjob ()
   (case (get-pushover-refresh)
-    (0 "BackgroundJob.FiveMinutes")     ; 0
-    (1 "BackgroundJob.FifteenMinutes")  ; 1
-    (2 "BackgroundJob.ThirtyMinutes")   ; 2
-    (3 "BackgroundJob.OneHour")         ; 3
+    (0 "BackgroundJob.FifteenMinutes")  ; 0
+    (1 "BackgroundJob.ThirtyMinutes")   ; 1
+    (2 "BackgroundJob.OneHour")         ; 2
+    (3 "BackgroundJob.FourHours")       ; 3
     (4 "BackgroundJob.TwelveHours")     ; 4
-    (otherwise "BackgroundJob.FifteenMinutes")))
+    (otherwise "BackgroundJob.ThirtyMinutes")))
 
 (defun set-pushover-refresh (refresh-time)
   (setf *pushover-refresh* refresh-time)
