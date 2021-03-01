@@ -81,6 +81,7 @@ Page {
             MenuItem {
                 text: "Refresh"
                 onClicked: function() {
+                    pushoverRefreshTimer.finished()
                     Lisp.call("cloverlover::pf-download-messages")
                     setMessagesModelTimer.running = true
                 }

@@ -4,6 +4,7 @@
 
 ### Added
 
+- Reset poll time on manual refresh.
 - Naive migration from old to new poll time format.
 
 ### Changed
