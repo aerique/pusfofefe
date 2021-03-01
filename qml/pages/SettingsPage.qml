@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Nemo.KeepAlive 1.2
 import EQL5 1.0
 
 Page {
@@ -86,20 +87,19 @@ Page {
                 objectName: "pushoverRefresh"
                 width: parent.width
                 description: "between Pushover checks"
-                currentIndex: Lisp.call(
-                    "cloverlover::get-pushover-refresh-for-combobox")
+                currentIndex: Lisp.call("cloverlover::get-pushover-refresh")
                 menu: ContextMenu {
-                    MenuItem { text: "1 minute" }
-                    MenuItem { text: "5 minutes" }
-                    MenuItem { text: "10 minutes" }
-                    MenuItem { text: "1 hour" }
-                    MenuItem { text: "4 hours" }
-                    //MenuItem { text: "1 day" }
+                    // See cloverlover.lisp:get-pushover-refresh-for-bgjob
+                    MenuItem { text: "5 minutes"  }  // 0
+                    MenuItem { text: "10 minutes" }  // 1
+                    MenuItem { text: "1 hour"     }  // 2
+                    MenuItem { text: "4 hours"    }  // 3
+                    MenuItem { text: "12 hours"   }  // 4
                     onClicked: function() {
                         Lisp.call("cloverlover::set-pushover-refresh",
-                                  pushoverRefresh.value)
-                        pushoverRefreshTimer.interval = 1000 *
-                            Lisp.call("cloverlover::get-pushover-refresh")
+                                  pushoverRefresh.currentIndex)
+                        pushoverRefreshTimer.frequency = eval(Lisp.call(
+                            "cloverlover::get-pushover-refresh-for-bgjob"))
                     }
                 }
             }

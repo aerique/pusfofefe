@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Nemo.KeepAlive 1.2
 import Nemo.Notifications 1.0
 import EQL5 1.0
 
@@ -17,13 +18,7 @@ ApplicationWindow
 
     RemorsePopup { id: remorse }
 
-    //BusyLabel {
-    //    id: busy_label
-    //    objectName: "busy_label"
-    //    text: "BusyLabel text stub"
-    //    running: false
-    //}
-
+    // My BusyLabel
     Rectangle {
         id: busy_rect
         objectName: "busy_rect"
@@ -110,17 +105,16 @@ ApplicationWindow
         previewBody: "Notification previewBody stub"
     }
 
-    Timer {
+    BackgroundJob {
         id: pushoverRefreshTimer
-        // `*pushover-refresh*` is in seconds
-        interval: 1000 * Lisp.call("cloverlover::get-pushover-refresh")
-        // This doesn't not work as expected.
-        //running: cover.status == Cover.Active
-        running: true
-        repeat: true
+        frequency: eval(Lisp.call(
+            "cloverlover::get-pushover-refresh-for-bgjob"))
+        //frequency: BackgroundJob.ThirtySeconds
+        enabled: true
         onTriggered: function() {
             Lisp.call("cloverlover::pf-download-messages", true)
             setMessagesModelTimer.running = true
+            pushoverRefreshTimer.finished()
         }
     }
 

@@ -10,11 +10,11 @@
 (setf *app-name*    "Pusfofefe")
 (setf *app-version* "0.9")
 
-(defparameter *pushover-email*      "")
-(defparameter *pushover-password*   "")
-(defparameter *pushover-secret*     "")
-(defparameter *pushover-device-id*  "")
-(defparameter *pushover-refresh*   600)  ; seconds
+(defparameter *pushover-email*     "")
+(defparameter *pushover-password*  "")
+(defparameter *pushover-secret*    "")
+(defparameter *pushover-device-id* "")
+(defparameter *pushover-refresh*   -1)
 
 (defparameter *pushover-response*          nil)
 (defparameter *pushover-messages*          '())
@@ -143,33 +143,18 @@
 (defun get-pushover-refresh ()
   *pushover-refresh*)
 
-;; XXX temporary hack (2021-01-12)
-;; FIXME closely coupled to UI!
-(defun get-pushover-refresh-for-combobox ()
+;; See SettingsPage.qml:pushoverRefresh
+(defun get-pushover-refresh-for-bgjob ()
   (case (get-pushover-refresh)
-    (   60 0)
-    (  300 1)
-    (  600 2)
-    ( 3600 3)
-    (14400 4)
-    (otherwise -1)))
+    (0 "BackgroundJob.FiveMinutes")  ; 0
+    (1 "BackgroundJob.TenMinutes")   ; 1
+    (2 "BackgroundJob.OneHour")      ; 2
+    (3 "BackgroundJob.FourHours")    ; 3
+    (4 "BackgroundJob.TwelveHours")  ; 4
+    (otherwise "BackgroundJob.TenMinutes")))
 
 (defun set-pushover-refresh (refresh-time)
-  ;; A bit blunt but I don't want to import CL-PPCRE.
-  ;; XXX update: CL-PPCRE is imported by Drakma anyway
-  (let ((value (parse-integer (subseq refresh-time 0
-                                      (position #\space refresh-time))))
-        (multiplier (cond ((or (ends-with refresh-time "minute")
-                               (ends-with refresh-time "minutes"))
-                           60)
-                          ((or (ends-with refresh-time "hour")
-                               (ends-with refresh-time "hours"))
-                           (* 60 60))
-                          (t (pf-feedback (mkstr "Unknown multiplier: "
-                                                 refresh-time))
-                             (return-from set-pushover-refresh)))))
-    (setf *pushover-refresh* (* value multiplier)))
-  (format t "Pushover refresh time set to ~Ds.~%" *pushover-refresh*)
+  (setf *pushover-refresh* refresh-time)
   (write-config))
 
 
