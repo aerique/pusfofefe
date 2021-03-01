@@ -14,7 +14,7 @@
 (defparameter *pushover-password*  "")
 (defparameter *pushover-secret*    "")
 (defparameter *pushover-device-id* "")
-(defparameter *pushover-refresh*   -1)
+(defparameter *pushover-refresh*    1)
 
 (defparameter *pushover-response*          nil)
 (defparameter *pushover-messages*          '())
@@ -146,12 +146,12 @@
 ;; See SettingsPage.qml:pushoverRefresh
 (defun get-pushover-refresh-for-bgjob ()
   (case (get-pushover-refresh)
-    (0 "BackgroundJob.FiveMinutes")  ; 0
-    (1 "BackgroundJob.TenMinutes")   ; 1
-    (2 "BackgroundJob.OneHour")      ; 2
-    (3 "BackgroundJob.FourHours")    ; 3
-    (4 "BackgroundJob.TwelveHours")  ; 4
-    (otherwise "BackgroundJob.TenMinutes")))
+    (0 "BackgroundJob.FiveMinutes")     ; 0
+    (1 "BackgroundJob.FifteenMinutes")  ; 1
+    (2 "BackgroundJob.ThirtyMinutes")   ; 2
+    (3 "BackgroundJob.OneHour")         ; 3
+    (4 "BackgroundJob.TwelveHours")     ; 4
+    (otherwise "BackgroundJob.FifteenMinutes")))
 
 (defun set-pushover-refresh (refresh-time)
   (setf *pushover-refresh* refresh-time)

@@ -91,9 +91,9 @@ Page {
                 menu: ContextMenu {
                     // See cloverlover.lisp:get-pushover-refresh-for-bgjob
                     MenuItem { text: "5 minutes"  }  // 0
-                    MenuItem { text: "10 minutes" }  // 1
-                    MenuItem { text: "1 hour"     }  // 2
-                    MenuItem { text: "4 hours"    }  // 3
+                    MenuItem { text: "15 minutes" }  // 1
+                    MenuItem { text: "30 minutes" }  // 2
+                    MenuItem { text: "1 hour"     }  // 3
                     MenuItem { text: "12 hours"   }  // 4
                     onClicked: function() {
                         Lisp.call("cloverlover::set-pushover-refresh",
