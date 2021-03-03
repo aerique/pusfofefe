@@ -1,5 +1,7 @@
 # Pusfofefe
 
+- [Changelog](CHANGELOG.md)
+
 A Pushover client written in Common Lisp.
 
 Thanks to [Renaud Casenave-Péré](https://openrepos.net/user/856/programs)
