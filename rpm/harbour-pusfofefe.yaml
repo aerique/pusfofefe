@@ -1,6 +1,6 @@
-Name: pusfofefe
+Name: harbour-pusfofefe
 Summary: Pushover Client for Sailfish OS
-Version: 0.9
+Version: 2.0
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # https://github.com/mer-tools/spectacle/blob/master/data/GROUPS

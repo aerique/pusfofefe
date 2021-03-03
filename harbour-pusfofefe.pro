@@ -23,7 +23,7 @@ lisp.input = LISP_FILES
 QMAKE_EXTRA_COMPILERS += lisp
 
 # The name of your application
-TARGET = pusfofefe
+TARGET = harbour-pusfofefe
 PRE_TARGETDEPS += libapp.a
 
 CONFIG += sailfishapp
@@ -31,7 +31,7 @@ LIBS += -lecl -leql5 -L. -lapp
 
 SOURCES += src/pusfofefe.cc
 
-DISTFILES += qml/pusfofefe.qml \
+DISTFILES += qml/harbour-pusfofefe.qml \
     qml/cover/CoverPage.qml \
     qml/pages/MessagesPage.qml \
     qml/pages/MessagePage.qml \
@@ -43,7 +43,7 @@ DISTFILES += qml/pusfofefe.qml \
     rpm/pusfofefe.spec \
     rpm/pusfofefe.yaml \
 #    translations/*.ts \
-    pusfofefe.desktop
+    harbour-pusfofefe.desktop
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
@@ -55,4 +55,4 @@ SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 # planning to localize your app, remember to comment out the
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
-# TRANSLATIONS += translations/pusfofefe-de.ts
+# TRANSLATIONS += translations/harbour-pusfofefe-de.ts

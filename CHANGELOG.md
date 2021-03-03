@@ -1,5 +1,12 @@
 # Changelog
 
+## 2.0 (2021-03-03)
+
+### Changed
+
+- Use `harbour-pusfofefe` instead of `pusfofefe` as name on the system
+  side of things.
+
 ## 1.1 (2021-03-02)
 
 ### Added
