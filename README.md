@@ -71,10 +71,10 @@ The actual build steps for Pusfofefe are:
 - you now have an RPM in the `RPMS` directory which you can copy to your
   phone and install there
 
-The first time you do the above steps it will all fail because ECL
-cannot find the Cloverlover library.  Still, this paragraph is at the
-end because by now Quicklisp will have been installed; doing this by
-hand for people unfamiliar with Common Lisp is too complicated.  To make
+The first time you do the above steps it will all fail (with some generic error
+about "libapp") because ECL cannot find the Cloverlover library. Still, this
+paragraph is at the end because by now Quicklisp will have been installed; doing
+this by hand for people unfamiliar with Common Lisp is too complicated. To make
 the library available:
 
 - `cd ~/projects`
@@ -90,8 +90,8 @@ And build again.
 
 - [ ] describe current downloading of messages wrt to threading,
       reasons, all used functions and vars, etc.
-- [ ] take a good look a all globals in `pusfofefe.qml` and see if we
-      can do better
+- [ ] take a good look at all globals in `pusfofefe.qml` and see if we can do
+      better
 - [ ] clean up code
 
 ### Normal Priority

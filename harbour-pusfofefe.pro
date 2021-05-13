@@ -12,22 +12,36 @@
 LISP_FILES = make.lisp \
     lisp/dependencies.lisp \
     lisp/cloverlover.lisp \
-    lisp/qml.lisp \
     lisp/app.lisp \
     lisp/app.asd
 
 lisp.output = libapp.a
 lisp.commands = eql5 -platform minimal $$PWD/make.lisp
 lisp.input = LISP_FILES
+lisp.CONFIG = combine target_predeps
 
 QMAKE_EXTRA_COMPILERS += lisp
 
 # The name of your application
 TARGET = harbour-pusfofefe
-PRE_TARGETDEPS += libapp.a
 
 CONFIG += sailfishapp
-LIBS += -lecl -leql5 -L. -lapp
+LIBS += -L. -lapp -lecl -leql5
+
+CONFIG += norepl
+#CONFIG += standalone
+
+norepl|standalone:lisp.commands = eql5 -platform minimal $$PWD/make.lisp norepl
+
+standalone {
+    CONFIG += link_prl
+    QT     += widgets qml multimedia network quick sql
+    # Note: the line below *removes* libs!
+    LIBS   -= -lecl -leql5
+    LIBS   += -l:libecl.a -l:libeclatomic.a -l:libeclgc.a -l:libeclgmp.a -l:libeclffi.a -l:libeql5.a
+    # XXX how to get rid of absolute path?
+    LIBS   += -L/usr/lib/ecl-21.2.1 -l:libasdf.a -l:libsockets.a
+}
 
 SOURCES += src/pusfofefe.cc
 

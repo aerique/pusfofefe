@@ -3,8 +3,8 @@
 
 (require :cmp)
 
-;; Uncomment this to enable Slime / Sly.
-;(push :app-debug *features*)
+(unless (member "norepl" (ext:command-args) :test #'string=)
+  (push :app-repl *features*))
 
 (load "lisp/dependencies")
 
@@ -16,7 +16,7 @@
                  :prologue-code '(progn (require :sb-bsd-sockets)
                                         (require :asdf))
                  :move-here "./"
-                 :init-name "init_lib_APP__ALL_SYSTEMS")
+                 :init-name "init_app")
 
 (let ((lib-name "libapp.a"))
   (when (probe-file lib-name)
