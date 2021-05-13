@@ -139,6 +139,7 @@ And build again.
       display it in different ways in the front-end
 - [ ] add Pushover [websocket](https://pushover.net/api/client#websocket)
       support
+    - https://support.kraken.com/hc/en-us/articles/360044504011-WebSocket-API-unexpected-disconnections-from-market-data-feeds
 
 ## Attributions
 

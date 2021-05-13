@@ -38,10 +38,10 @@ DISTFILES += qml/harbour-pusfofefe.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/LoginDialog.qml \
     qml/pages/AboutPage.qml \
-    rpm/pusfofefe.changes.in \
-    rpm/pusfofefe.changes.run.in \
-    rpm/pusfofefe.spec \
-    rpm/pusfofefe.yaml \
+    rpm/harbour-pusfofefe.changes.in \
+    rpm/harbour-pusfofefe.changes.run.in \
+    rpm/harbour-pusfofefe.spec \
+    rpm/harbour-pusfofefe.yaml \
 #    translations/*.ts \
     harbour-pusfofefe.desktop
 
