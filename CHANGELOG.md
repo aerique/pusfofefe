@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.1 (2021-05-13)
+
+### Added
+
+- `aarch64` and `i486` packages.
+
+### Changed
+
+- Bring source in sync with [razcampagne](https://openrepos.net/user/856/programs)'s ECL and EQL5 repository.
+
 ## 2.0 (2021-03-03)
 
 ### Changed

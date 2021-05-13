@@ -127,7 +127,7 @@ And build again.
 - [x] add buttons on MessagePage to go to next and previous message
 - [x] add support for landscape orientation
 - [ ] figure out why ECL/EQL won't build from `mb2` step below
-- [ ] try again to make deploy workflow one command
+- [ ] try again to make deploy workflow one command (maybe use `expect`?)
     - `sb2 -t SailfishOS-latest-armv7hl -m sdk-build -R`
         - `qmake`
         - `make`
